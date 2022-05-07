@@ -1,0 +1,34 @@
+{
+  "name": "fortissimo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^5.0.4",
+    "@vue/cli-plugin-router": "^5.0.4",
+    "@vue/cli-plugin-vuex": "^5.0.4",
+    "@vue/cli-service": "^5.0.4",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "vue-loader": "^17.0.0",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "resolutions": {
+    "svgo": "1.3.0"
+  }
+}
