@@ -3,7 +3,10 @@
     <header class="header">
       <div class="container">
         <div class="header_group">
-          <div class="header_burger burger" @click="swithBurger">
+          <div
+            :class="['header_burger burger', { active: showMenu }]"
+            @click="swithBurger"
+          >
             <div class="burger_container">
               <div class="line"></div>
             </div>
@@ -30,12 +33,14 @@
           </a>
         </div>
 
-        <router-link to="/" tag="a" class="logo">    
-          <picture>          
-            <source media="(max-width: 768px)" srcset="../assets/images/header/logo-mobile.png">
-            <img src="../assets/images/header/logo.jpg">
-          </picture>  
-          <!-- <img src="../assets/images/header/logo.jpg" alt="Fortissimo" /> -->
+        <router-link to="/" tag="a" class="logo">
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcset="../assets/images/header/logo-mobile.png"
+            />
+            <img src="../assets/images/header/logo.jpg" alt="Fortissimo" />
+          </picture>
         </router-link>
 
         <div class="header_group">
@@ -68,7 +73,6 @@
 <script>
 import BergerMenu from "./BurgerMenu.vue";
 
-
 export default {
   name: "Header",
   components: {
@@ -76,12 +80,12 @@ export default {
   },
   data() {
     return {
-       showMenu: false,
+      showMenu: false,
     };
   },
   methods: {
     swithBurger() {
-      this.showMenu =  !this.showMenu;
+      this.showMenu = !this.showMenu;
     },
   },
 };
@@ -95,21 +99,27 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
 .header {
   position: relative;
   z-index: 2;
   background: #1b1b1a;
-  border-bottom: 1px solid #6D6D6D;
+  border-bottom: 1px solid #6d6d6d;
+  height: 80px;
+  @include max-w(767) {
+    height: 60px;
+  }
   &_group {
     display: flex;
     align-items: center;
+    height: 100%;
   }
 
   .burger {
     display: flex;
     align-items: center;
-    height: 80px;
+    height: 100%;
     padding: 0 28px;
     cursor: pointer;
     &_container {
@@ -137,9 +147,27 @@ export default {
         height: 1.5px;
         width: 24px;
         background: #ffffff;
+        transition: transform 0.2s ease-in-out;
       }
       &:after {
         top: 7px;
+        transform-origin: 0% 50%;
+      }
+      &:before {
+        transform-origin: 0% 50%;
+      }
+    }
+    &.active {
+      .line {
+        background: transparent;
+        &:before {
+          transform: rotate(45deg);
+          left: 1px;
+          top: -10px;
+        }
+        &:after {
+          transform: rotate(-45deg);
+        }
       }
     }
   }
@@ -148,11 +176,10 @@ export default {
     display: flex;
     align-items: center;
 
-    height: 80px;
+    height: 100%;
     padding: 0 24px;
 
     &_img {
-     
     }
 
     &_text {
@@ -168,11 +195,10 @@ export default {
 
       margin-left: 13px;
 
-      @include max-w(768){
+      @include max-w(768) {
         display: none;
       }
-      
-    } 
+    }
 
     &:hover {
       .phone {
@@ -195,7 +221,7 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 30px;
-  height: 80px;
+  height: 100%;
   cursor: pointer;
 
   &_img {

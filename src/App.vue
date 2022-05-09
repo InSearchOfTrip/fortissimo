@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <Header />
-    <ProductsSlider />
+    <router-view>
+
+    </router-view>
+    <Footer />
   </div>
 </template>
 
@@ -11,12 +14,13 @@
 import "@/style/main.scss";
 
 import Header from '@/components/Header.vue';
-import ProductsSlider from '@/components/ProductsSlider.vue';
+import Footer from '@/components/Footer.vue';
+
 
 export default {
   components: {
-    Header,
-    ProductsSlider
+    Header ,
+    Footer   
   }
 }
 </script>

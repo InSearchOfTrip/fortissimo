@@ -14,30 +14,30 @@ const productsSlider = {
         prise_text: "/ 100% арабіка",
 
       },
-      // {
-      //   id: "2",
-      //   title: "ефіопія джимма 100% арабіка",
-      //   img: "@/assets/images/productsSlide/product_1.png",
-      //   prise_int: "150 грн",
-      //   prise_text: "/ 100% арабіка",
+      {
+        id: "2",
+        title: "ефіопія джимма 100% арабіка",
+        img: "productsSlide/product_1.png",
+        prise_int: "150 грн",
+        prise_text: "/ 100% арабіка",
 
-      // },
-      // {
-      //   id: "3",
-      //   title: "дегустаційний сет “затятий кавоман”",
-      //   img: "@/assets/images/productsSlide/product_1.png",
-      //   prise_int: "399 грн",
-      //   prise_text: "/ 100% арабіка",
+      },
+      {
+        id: "3",
+        title: "дегустаційний сет “затятий кавоман”",
+        img: "productsSlide/product_1.png",
+        prise_int: "399 грн",
+        prise_text: "/ 100% арабіка",
 
-      // },
-      // {
-      //   id: "4",
-      //   title: "ефіопія джимма 100% арабіка",
-      //   img: "@/assets/images/productsSlide/product_1.png",
-      //   prise_int: "150 грн",
-      //   prise_text: "/ 100% арабіка",
+      },
+      {
+        id: "4",
+        title: "ефіопія джимма 100% арабіка",
+        img: "productsSlide/product_1.png",
+        prise_int: "150 грн",
+        prise_text: "/ 100% арабіка",
 
-      // },
+      },
     ],
     propose: [
       {
@@ -52,7 +52,8 @@ const productsSlider = {
         name: "Гондурас маркала 100% арабіка / мелена / 250 г",
         href: "/some2"
       }
-    ]
+    ],
+
   },
   getters:{
     getProducts(state){

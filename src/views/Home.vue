@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-  
-   
+    <ProductsSlider />
+    <Merch />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
+import ProductsSlider from "@/components/ProductsSlider.vue";
+import Merch from "@/components/Merch.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-  
-  }
-}
+    ProductsSlider,
+    Merch,
+  },
+};
 </script>
