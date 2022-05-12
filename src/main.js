@@ -5,8 +5,18 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
+
+Vue.use({
   store,
+  router, 
+})
+
+const main = new Vue({
+  store,
+  router,
+  
   render: h => h(App)
 }).$mount('#app')
+
+
+export default main

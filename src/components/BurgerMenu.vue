@@ -84,7 +84,7 @@ export default {
           },
           {
             text: "Повернення товару",
-            href: "/rules",
+            href: "/return",
           },
           {
             text: "Політика конфіденційності",

@@ -1,15 +1,17 @@
 <template>
   <footer class="footer">
-    <div class="footer_made">
-      <span> Made by </span>
-      <a href="">
-        <img src="../assets/images/footer/domino.png" alt="Domino" />
-      </a>
+    <div class="footer_bottom footer-bottom">
+      <div class="footer-bottom_made">
+        <span> Made by </span>
+        <a href="">
+          <img src="../assets/images/footer/domino.png" alt="Domino" />
+        </a>
+      </div>
+      <button class="footer-bottom_scroll" @click="scrollTop">
+        <img src="../assets/images/footer/arrow_top.png" alt="Scroll top" />
+        <span> вгору </span>
+      </button>
     </div>
-    <button class="footer_scroll" @click="scrollTop">
-      <img src="../assets/images/footer/arrow_top.png" alt="Scroll top" />
-      <span> вгору </span>
-    </button>
   </footer>
 </template>
 
@@ -24,13 +26,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.footer {
+.footer-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #1b1b1a;
   padding: 30px 80px;
-  @include max-w(767){
+  @include max-w(767) {
     padding: 16px 20px;
   }
   &_made {

@@ -16,7 +16,7 @@
             <h4 v-html="el.title"></h4>
           </div>
           <div class="item-info_prise prise">
-            <span class="prise_int" v-html="el.prise_int"></span>
+            <span class="prise_int" >{{el.prise_int}} грн</span>
             <span>&nbsp;</span>
             <span class="prise_text" v-html="el.prise_text"></span>
           </div>
@@ -81,7 +81,7 @@
 
 <script>
 export default {
-  name: "productsSlider",
+  name: "ProductsSlider",
   data() {
     return {
       slideActive: 1,

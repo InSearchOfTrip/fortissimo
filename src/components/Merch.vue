@@ -92,8 +92,8 @@ export default {
           let scrollAfterEvent =
             window.pageYOffset + window.screen.height - merchOffsetTop;
 
-          this.fly(left, scrollAfterEvent / 50, "left");
-          this.fly(right, scrollAfterEvent / 50, "right");
+          this.fly(left, scrollAfterEvent / 40, "left");
+          this.fly(right, scrollAfterEvent / 40, "right");
         }
       });
     },

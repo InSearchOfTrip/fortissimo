@@ -44,7 +44,7 @@
         </router-link>
 
         <div class="header_group">
-          <div class="basket border">
+          <div :class="['basket border', { active: basket.count }]">
             <svg
               class="basket_img"
               width="22"
@@ -61,7 +61,14 @@
               />
             </svg>
 
-            <span class="basket_text">кошик</span>
+            <div
+              :class="['basket_text', { active: basket.count }]"
+              v-if="basket.count > 0"
+            >
+              <span class="basket_count">{{ basket.count }}</span> -
+              <span style="basket_prise">{{ basket.sum }}</span>
+            </div>
+            <div class="basket_text" v-else>кошик</div>
           </div>
         </div>
       </div>
@@ -86,6 +93,35 @@ export default {
   methods: {
     swithBurger() {
       this.showMenu = !this.showMenu;
+    },
+  },
+  computed: {
+    basket() {
+      console.log("do");
+      let productsInBasket = this.$store.getters.getBasket;
+      let sumPrise = 0;
+      let prodCount = 0;
+
+      if (productsInBasket.length > 0) {
+        productsInBasket.forEach((element) => {        
+          prodCount += element.addedInBasket;
+          let choosedTypeArr = element["priseStructure"][element.typeChoosed];
+          let choosedWeightArr = choosedTypeArr["prises"] ;
+         
+
+          let resultPrise = choosedWeightArr[element.weightChoosed];
+
+          if (typeof resultPrise === "object") {
+            sumPrise += +resultPrise.new * element.addedInBasket;
+          } else {
+            sumPrise += (+resultPrise * element.addedInBasket);
+          }
+        });
+      }
+      return {
+        count: prodCount,
+        sum: sumPrise,
+      };
     },
   },
 };
@@ -250,6 +286,20 @@ export default {
       &_text {
         color: #ffffff;
         transition: color 0.2s ease-in-out;
+      }
+    }
+  }
+
+  &.active {
+    .basket {
+      &_img {
+        path {
+          fill: #ffffff;
+          transition: fill 0.2s ease-in-out;
+        }
+      }
+      &_count{
+        color: #FFFFFF
       }
     }
   }
