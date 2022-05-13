@@ -163,7 +163,7 @@
                   <div
                     :class="[
                       'item-footer_basket-group',
-                      { active: el.addedInBasket > 0 },
+                      { active: isBasketEmpty(el) },
                     ]"
                   >
                     <div class="item-footer_basket-control basket-control">
@@ -182,7 +182,7 @@
                     </div>
                     <button
                       :class="['item-footer_basket basket']"
-                      @click.stop="addInBasket(el)"
+                      @click="addInBasket(el)"
                     >
                       <svg
                         class="basket_img"
@@ -199,7 +199,11 @@
                           fill="#1B1B1A"
                         />
                       </svg>
-                      <span v-text="el.addedInBasket" class="basket_count" v-if="el.addedInBasket> 0"></span>
+                      <span
+                        v-text="showBasketCnt(el)"
+                        class="basket_count"
+                        v-if="isBasketEmpty(el)"
+                      ></span>
                       <span v-else class="basket_text">кошик</span>
                     </button>
                   </div>
@@ -254,19 +258,50 @@ export default {
 
       return resultPrise;
     },
+    isBasketEmpty(el) {
+      let result;
+      el.addedInBasket.forEach((element) => {
+        if (
+          el.typeChoosed === element.typeChoosed &&
+          el.weightChoosed === element.weightChoosed
+        ) {
+          result = element.cnt > 0;
+        } else {
+          result = false;
+        }
+      });
+      return result;
+    },
+    showBasketCnt(el) {
+      let result;
+      el.addedInBasket.forEach((element) => {
+        if (
+          el.typeChoosed === element.typeChoosed &&
+          el.weightChoosed === element.weightChoosed
+        ) {
+          result = element.cnt;
+        }
+      });
+      return result;
+    },
     addInBasket(product) {
-      console.log(product.addedInBasket++);
+      product.addedInBasket.push({
+        cnt: 1,
+        weightChoosed: product.weightChoosed,
+        typeChoosed: product.typeChoosed,
+      });
       let clone = JSON.parse(JSON.stringify(product));
       this.$store.commit("addInBaskt", clone);
     },
     incrementProduct(el) {
-      el.addedInBasket++;
+      // el.addedInBasket++;
       this.$store.commit("incrProdInBasket", el.id);
-
     },
     decrementProduct(el) {
-      el.addedInBasket--;
+      // el.addedInBasket--;
       this.$store.commit("decrProdInBasket", el.id);
+
+      this.$store.commit("deleteFromBasket");
     },
     prev() {
       this.$refs.carousel.prev();
@@ -274,11 +309,22 @@ export default {
     next() {
       this.$refs.carousel.next();
     },
+    findElInBasket(el , func) {
+      let result;
+      el.addedInBasket.forEach((element) => {
+        if (
+          el.typeChoosed === element.typeChoosed &&
+          el.weightChoosed === element.weightChoosed
+        ) {
+          result = func(element);
+        }
+      });
+      return result;
+    },
     changed(slideIndex) {
       this.currentSlide = slideIndex;
     },
   },
-
   created() {
     this.products = this.$store.getters.getAllProducts;
   },
@@ -669,22 +715,22 @@ export default {
               .basket-control {
                 width: 100%;
               }
-              .basket{
+              .basket {
                 pointer-events: none;
-                background: #1B1B1A;
-                &_count{
-                  font-family: 'Cuprum';
+                background: #1b1b1a;
+                &_count {
+                  font-family: "Cuprum";
                   font-style: normal;
                   font-weight: 400;
                   font-size: 18px;
                   line-height: 22px;
                   letter-spacing: 0.02em;
                   text-transform: uppercase;
-                  color: #FFFFFF;
+                  color: #ffffff;
                 }
-                &_img{
-                  path{
-                    fill: #FFFFFF;
+                &_img {
+                  path {
+                    fill: #ffffff;
                   }
                 }
               }

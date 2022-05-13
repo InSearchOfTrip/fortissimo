@@ -103,7 +103,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
       {
         id: "1",
@@ -154,7 +156,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ] 
       },
       {
         id: "3",
@@ -187,7 +191,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
       {
         id: "4",
@@ -221,7 +227,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
       {
         id: "5",
@@ -272,7 +280,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
       {
         id: "6",
@@ -306,7 +316,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
       {
         id: "7",
@@ -357,7 +369,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
       {
         id: "8",
@@ -390,7 +404,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
       {
         id: "9",
@@ -424,7 +440,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
       {
         id: "10",
@@ -475,7 +493,9 @@ const products = {
         },
         weightChoosed: "250",
         typeChoosed: "ground",
-        addedInBasket: 0
+        addedInBasket: [
+         
+        ]
       },
 
     ],
@@ -512,6 +532,11 @@ const basket = {
         if( element.id === id){
           element.addedInBasket--;
         }
+      });
+    },
+    deleteFromBasket(state){
+      state.basket = state.basket.filter( (el)=> {
+        return el.addedInBasket > 0;
       });
     }
   },
