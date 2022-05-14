@@ -94,28 +94,47 @@ export default {
     swithBurger() {
       this.showMenu = !this.showMenu;
     },
+     _findElInBasket(el, func) {
+      let result;
+      el.addedInBasket.forEach((element) => {
+        if (
+          el.typeChoosed === element.typeChoosed &&
+          el.weightChoosed === element.weightChoosed
+        ) {
+          result = func(element);
+        }else{
+          return false;
+        }
+      });
+      return result;
+    },
   },
   computed: {
-    basket() {
-      console.log("do");
+    basket() {      
       let productsInBasket = this.$store.getters.getBasket;
       let sumPrise = 0;
       let prodCount = 0;
+     
 
-      if (productsInBasket.length > 0) {
-        productsInBasket.forEach((element) => {        
-          prodCount += element.addedInBasket;
-          let choosedTypeArr = element["priseStructure"][element.typeChoosed];
-          let choosedWeightArr = choosedTypeArr["prises"] ;
-         
+      if (productsInBasket.length > 0) {        
+        productsInBasket.forEach((element) => {   
 
-          let resultPrise = choosedWeightArr[element.weightChoosed];
+          element.addedInBasket.forEach(function (el){  
+            let thisProdCnt = el.cnt;           
+            prodCount += thisProdCnt;
+            
+            let choosedTypeArr = element["priseStructure"][el.typeChoosed];
+            let choosedWeightArr = choosedTypeArr["prises"];         
 
-          if (typeof resultPrise === "object") {
-            sumPrise += +resultPrise.new * element.addedInBasket;
-          } else {
-            sumPrise += (+resultPrise * element.addedInBasket);
-          }
+            let resultPrise = choosedWeightArr[el.weightChoosed];
+     
+            if (typeof resultPrise === "object") {
+              sumPrise += +resultPrise.new * thisProdCnt;
+            } else {
+              sumPrise += (+resultPrise * thisProdCnt);
+            }
+          });
+        
         });
       }
       return {

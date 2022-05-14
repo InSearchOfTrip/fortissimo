@@ -1,7 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-
+function _findElInBasket(el, func) {
+  let result;
+  el.addedInBasket.forEach((element) => {
+    if (
+      el.typeChoosed === element.typeChoosed &&
+      el.weightChoosed === element.weightChoosed
+    ) {
+      result = func(element);
+    } else {
+      return false;
+    }
+  });
+  return result;
+}
 
 Vue.use(Vuex)
 
@@ -70,8 +83,7 @@ const productsSlider = {
 
 const products = {
   state: {
-    products: [
-      {
+    products: [{
         id: "0",
         title: "Бразилія Сантос 100% арабіка",
         img: "products/product_1.png",
@@ -79,21 +91,21 @@ const products = {
           "хіт продажів",
           "новинка"
         ],
-        taste: "чорний шоколад",   
-       
+        taste: "чорний шоколад",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": "55",
               "500": "110",
               "1000": "220"
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": "50",
               "500": "100",
@@ -102,9 +114,9 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
       {
@@ -112,16 +124,16 @@ const products = {
         title: "ефіопія джимма 100% арабіка",
         img: "products/product_2.png",
         marks: [
-          "акція",        
+          "акція",
         ],
-        taste: "гіркуватий смак із сильним кавовим ароматом",   
-       
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": {
                 old: "55",
@@ -137,7 +149,7 @@ const products = {
               }
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": {
                 old: "50",
@@ -155,33 +167,33 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
-        ] 
+
+        ]
       },
       {
         id: "3",
         title: "гондурас маркала ля паз 100% арабіка",
         img: "products/product_1.png",
-        marks: [        
-         
+        marks: [
+
         ],
-        taste: "чорний шоколад",   
-       
+        taste: "чорний шоколад",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": "55",
               "500": "110",
               "1000": "220"
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": "50",
               "500": "100",
@@ -190,9 +202,9 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
       {
@@ -203,21 +215,21 @@ const products = {
           "хіт продажів",
           "новинка"
         ],
-        taste: "чорний шоколад",   
-       
+        taste: "чорний шоколад",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": "55",
               "500": "110",
               "1000": "220"
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": "50",
               "500": "100",
@@ -226,9 +238,9 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
       {
@@ -236,16 +248,16 @@ const products = {
         title: "ефіопія джимма 100% арабіка",
         img: "products/product_2.png",
         marks: [
-          "акція",        
+          "акція",
         ],
-        taste: "гіркуватий смак із сильним кавовим ароматом",   
-       
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": {
                 old: "55",
@@ -261,7 +273,7 @@ const products = {
               }
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": {
                 old: "50",
@@ -279,9 +291,9 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
       {
@@ -292,21 +304,21 @@ const products = {
           "хіт продажів",
           "новинка"
         ],
-        taste: "чорний шоколад",   
-       
+        taste: "чорний шоколад",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": "55",
               "500": "110",
               "1000": "220"
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": "50",
               "500": "100",
@@ -315,9 +327,9 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
       {
@@ -325,16 +337,16 @@ const products = {
         title: "ефіопія джимма 100% арабіка",
         img: "products/product_2.png",
         marks: [
-          "акція",        
+          "акція",
         ],
-        taste: "гіркуватий смак із сильним кавовим ароматом",   
-       
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": {
                 old: "55",
@@ -350,7 +362,7 @@ const products = {
               }
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": {
                 old: "50",
@@ -368,33 +380,33 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
       {
         id: "8",
         title: "гондурас маркала ля паз 100% арабіка",
         img: "products/product_1.png",
-        marks: [        
-         
+        marks: [
+
         ],
-        taste: "чорний шоколад",   
-       
+        taste: "чорний шоколад",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": "55",
               "500": "110",
               "1000": "220"
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": "50",
               "500": "100",
@@ -403,9 +415,9 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
       {
@@ -416,21 +428,21 @@ const products = {
           "хіт продажів",
           "новинка"
         ],
-        taste: "чорний шоколад",   
-       
+        taste: "чорний шоколад",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": "55",
               "500": "110",
               "1000": "220"
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": "50",
               "500": "100",
@@ -439,9 +451,9 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
       {
@@ -449,16 +461,16 @@ const products = {
         title: "ефіопія джимма 100% арабіка",
         img: "products/product_2.png",
         marks: [
-          "акція",        
+          "акція",
         ],
-        taste: "гіркуватий смак із сильним кавовим ароматом",   
-       
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
         type: [
           "мелена",
           "зерна"
         ],
         priseStructure: {
-          ground: {           
+          ground: {
             prises: {
               "250": {
                 old: "55",
@@ -474,7 +486,7 @@ const products = {
               }
             }
           },
-          grains: {          
+          grains: {
             prises: {
               "250": {
                 old: "50",
@@ -492,9 +504,9 @@ const products = {
           },
         },
         weightChoosed: "250",
-        typeChoosed: "ground",
+        typeChoosed: "grains",
         addedInBasket: [
-         
+
         ]
       },
 
@@ -515,29 +527,77 @@ const basket = {
   state: {
     basket: []
   },
-  mutations:{
-    addInBaskt(state , el){
-      state.basket.push(el);
+  mutations: {
+
+    addInBaskt(state, obj) {
+
+      if (state.basket.length != 0) {
+        let flag = true;
+        state.basket.forEach(function (element) {
+          if (element.id === obj.clone.id) {
+            element.addedInBasket.push(obj.basketObj);   
+               
+            element.weightChoosed = obj.basketObj.weightChoosed;
+            element.typeChoosed = obj.basketObj.typeChoosed;
+
+            flag = false;
+          }
+        });
+        if (flag) {
+          state.basket.push(obj.clone);
+        }
+
+      } else {
+        state.basket.push(obj.clone);
+      }
+
     },
-    
-    incrProdInBasket(state , id){
+
+    incrProdInBasket(state, obj) {
       state.basket.forEach(element => {
-        if( element.id === id){
-          element.addedInBasket++;
+        if (element.id === obj.id) {
+          element.addedInBasket.forEach(function (el) {
+            if (
+              el.typeChoosed === obj.typeChoosed &&
+              el.weightChoosed === obj.weightChoosed
+            ) {
+              el.cnt++;
+            }
+          })
+
         }
       });
     },
-    decrProdInBasket(state , id){
+    decrProdInBasket(state, obj) {
       state.basket.forEach(element => {
-        if( element.id === id){
-          element.addedInBasket--;
+        if (element.id === obj.id) {
+          element.addedInBasket.forEach(function (el) {
+            if (
+              el.typeChoosed === obj.typeChoosed &&
+              el.weightChoosed === obj.weightChoosed
+            ) {
+              if (el.cnt - 1 != -1) {
+                el.cnt--;
+              };
+            }
+          })
         }
       });
     },
-    deleteFromBasket(state){
-      state.basket = state.basket.filter( (el)=> {
-        return el.addedInBasket > 0;
-      });
+    deleteFromBasket(state) {
+      
+      state.basket.forEach(function (element, i) {
+        let basketArr = element.addedInBasket;
+        for (let i = 0; i < basketArr.length; i++) {
+          let element = basketArr[i];
+
+          if (element.cnt === 0) {
+         
+            state.basket.splice(i, 1);
+          };
+        }
+
+      })
     }
   },
   getters: {
@@ -546,11 +606,12 @@ const basket = {
     },
 
   },
-  computed:{
-    basketComputed(){
+  computed: {
+    basketComputed() {
       return state.basket
     }
   },
+
 }
 
 export default new Vuex.Store({

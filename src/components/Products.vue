@@ -243,8 +243,7 @@ export default {
       return require(`../assets/images/${rout}`);
     },
     calcPrise(id) {
-      let resultPrise = "";
-
+      let resultPrise = "";    
       this.products.forEach((element) => {
         if (element.id === id) {
           let choosedTypeArr = element["priseStructure"][element.typeChoosed];
@@ -258,58 +257,14 @@ export default {
 
       return resultPrise;
     },
-    isBasketEmpty(el) {
-      let result;
-      el.addedInBasket.forEach((element) => {
-        if (
-          el.typeChoosed === element.typeChoosed &&
-          el.weightChoosed === element.weightChoosed
-        ) {
-          result = element.cnt > 0;
-        } else {
-          result = false;
-        }
+    isBasketEmpty(el) {     
+      let res =  this._findElInBasket(el, function (element) {        
+        return element.cnt > 0;
       });
-      return result;
+      console.log( "do" );
+      return res;
     },
-    showBasketCnt(el) {
-      let result;
-      el.addedInBasket.forEach((element) => {
-        if (
-          el.typeChoosed === element.typeChoosed &&
-          el.weightChoosed === element.weightChoosed
-        ) {
-          result = element.cnt;
-        }
-      });
-      return result;
-    },
-    addInBasket(product) {
-      product.addedInBasket.push({
-        cnt: 1,
-        weightChoosed: product.weightChoosed,
-        typeChoosed: product.typeChoosed,
-      });
-      let clone = JSON.parse(JSON.stringify(product));
-      this.$store.commit("addInBaskt", clone);
-    },
-    incrementProduct(el) {
-      // el.addedInBasket++;
-      this.$store.commit("incrProdInBasket", el.id);
-    },
-    decrementProduct(el) {
-      // el.addedInBasket--;
-      this.$store.commit("decrProdInBasket", el.id);
-
-      this.$store.commit("deleteFromBasket");
-    },
-    prev() {
-      this.$refs.carousel.prev();
-    },
-    next() {
-      this.$refs.carousel.next();
-    },
-    findElInBasket(el , func) {
+    _findElInBasket(el, func) {
       let result;
       el.addedInBasket.forEach((element) => {
         if (
@@ -317,12 +272,95 @@ export default {
           el.weightChoosed === element.weightChoosed
         ) {
           result = func(element);
+        } else {
+          return false;
         }
       });
       return result;
     },
+    showBasketCnt(el) {
+      return this._findElInBasket(el, function (element) {
+        return element.cnt;
+      });
+    },
+    addInBasket(product) {
+      let basketObj = {
+        cnt: 1,
+        weightChoosed: product.weightChoosed,
+        typeChoosed: product.typeChoosed,
+      };
+
+      if (product.addedInBasket.length === 0) {
+        product.addedInBasket.push(basketObj);
+      } else {
+        product.addedInBasket.forEach((el) => {
+          if (
+            el.typeChoosed !== basketObj.typeChoosed ||
+            el.weightChoosed !== basketObj.weightChoosed
+          ) {
+            product.addedInBasket.push(basketObj);
+          }
+        });
+      }
+
+      let clone = JSON.parse(JSON.stringify(product));
+
+      this.$store.commit("addInBaskt", {
+        clone: JSON.parse(JSON.stringify(clone)),
+        basketObj: JSON.parse(JSON.stringify(basketObj)),
+      });
+    },
+    incrementProduct(el) {
+      this._findElInBasket(el, (element) => {
+        element.cnt++;
+
+        this.$store.commit("incrProdInBasket", {
+          id: el.id,
+          typeChoosed: element.typeChoosed,
+          weightChoosed: element.weightChoosed,
+        });
+      });
+    },
+    decrementProduct(el) {
+      this._findElInBasket(el, (element) => {
+        if (element.cnt - 1 != -1) {
+          element.cnt--;
+        }
+
+        this.$store.commit("decrProdInBasket", {
+          id: el.id,
+          typeChoosed: element.typeChoosed,
+          weightChoosed: element.weightChoosed,
+        });
+      });
+
+      // this.$store.commit("deleteFromBasket");
+      // this.deleteFromBasket();
+    },
+    prev() {
+      this.$refs.carousel.prev();
+    },
+    next() {
+      this.$refs.carousel.next();
+    },
+
     changed(slideIndex) {
       this.currentSlide = slideIndex;
+    },
+    deleteFromBasket() {
+        let that = this;
+        this.products.forEach(function (element, i) {
+          let basketArr = element.addedInBasket;
+          for (let i = 0; i < basketArr.length; i++) {
+            let element = basketArr[i];
+
+            if (element.cnt === 0) {
+             
+              that.products.splice(i, 1);
+            }
+          }
+        });
+    
     },
   },
   created() {

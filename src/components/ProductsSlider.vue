@@ -113,8 +113,7 @@ export default {
     slideItemHeight() {
       this.$nextTick(() => {
         let maxHeight = 0;
-        this.$refs["sliderItem"].forEach(function (el) {
-          console.log(el.offsetHeight);
+        this.$refs["sliderItem"].forEach(function (el) {   
         });
       });
     },
