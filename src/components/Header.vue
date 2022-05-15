@@ -233,10 +233,7 @@ export default {
 
     height: 100%;
     padding: 0 24px;
-
-    &_img {
-    }
-
+   
     &_text {
       font-family: "Raleway";
       font-style: normal;

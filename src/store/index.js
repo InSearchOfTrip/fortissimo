@@ -561,38 +561,40 @@ const basket = {
               el.typeChoosed === obj.typeChoosed &&
               el.weightChoosed === obj.weightChoosed
             ) {
-              el.cnt++;
+              el.cnt = el.cnt + 1;
             }
           })
 
         }
       });
     },
-    decrProdInBasket(state, obj) {
+    decrProdInBasket(state, obj) {   
       state.basket.forEach(element => {
         if (element.id === obj.id) {
-          element.addedInBasket.forEach(function (el) {
+          let basketArr = element.addedInBasket;         
+          for( let i = 0; i < basketArr.length; i++){
+            let el = basketArr[i];        
             if (
               el.typeChoosed === obj.typeChoosed &&
               el.weightChoosed === obj.weightChoosed
             ) {
-              if (el.cnt - 1 != -1) {
-                el.cnt--;
-              };
+              if (el.cnt - 1 != 0) {
+                el.cnt = el.cnt - 1;
+              }else{                   
+                
+                basketArr.splice(i, 1);           
+              }
             }
-          })
+          }        
         }
       });
     },
-    deleteFromBasket(state) {
-      
-      state.basket.forEach(function (element, i) {
+    deleteFromBasket(state) {      
+      state.basket.forEach(function (element, index) {
         let basketArr = element.addedInBasket;
         for (let i = 0; i < basketArr.length; i++) {
           let element = basketArr[i];
-
-          if (element.cnt === 0) {
-         
+          if (element.cnt === 0) {            
             state.basket.splice(i, 1);
           };
         }

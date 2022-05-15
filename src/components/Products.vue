@@ -116,7 +116,7 @@
                                   :value="name"
                                   v-model="el.weightChoosed"
                                 />
-                                {{ name }}
+                                {{ name }} г
                               </label>
                             </div>
                           </div>
@@ -234,7 +234,6 @@ export default {
     return {
       products: [],
       currentSlide: 0,
-      basket: [],
     };
   },
   computed: {},
@@ -243,7 +242,7 @@ export default {
       return require(`../assets/images/${rout}`);
     },
     calcPrise(id) {
-      let resultPrise = "";    
+      let resultPrise = "";
       this.products.forEach((element) => {
         if (element.id === id) {
           let choosedTypeArr = element["priseStructure"][element.typeChoosed];
@@ -257,11 +256,11 @@ export default {
 
       return resultPrise;
     },
-    isBasketEmpty(el) {     
-      let res =  this._findElInBasket(el, function (element) {        
+    isBasketEmpty(el) {
+      let res = this._findElInBasket(el, function (element) {
         return element.cnt > 0;
       });
-      console.log( "do" );
+
       return res;
     },
     _findElInBasket(el, func) {
@@ -290,18 +289,7 @@ export default {
         typeChoosed: product.typeChoosed,
       };
 
-      if (product.addedInBasket.length === 0) {
-        product.addedInBasket.push(basketObj);
-      } else {
-        product.addedInBasket.forEach((el) => {
-          if (
-            el.typeChoosed !== basketObj.typeChoosed ||
-            el.weightChoosed !== basketObj.weightChoosed
-          ) {
-            product.addedInBasket.push(basketObj);
-          }
-        });
-      }
+      product.addedInBasket.push(basketObj);
 
       let clone = JSON.parse(JSON.stringify(product));
 
@@ -322,17 +310,30 @@ export default {
       });
     },
     decrementProduct(el) {
-      this._findElInBasket(el, (element) => {
-        if (element.cnt - 1 != -1) {
-          element.cnt--;
-        }
+      let basketArr = el.addedInBasket;
 
-        this.$store.commit("decrProdInBasket", {
+      for (let i = 0; i < basketArr.length; i++) {
+        let element = basketArr[i];
+
+        let setting = {
           id: el.id,
           typeChoosed: element.typeChoosed,
           weightChoosed: element.weightChoosed,
-        });
-      });
+        };
+
+        if (
+          element.typeChoosed === el.typeChoosed &&
+          element.weightChoosed === el.weightChoosed
+        ) {
+          if (element.cnt - 1 != 0) {
+            element.cnt--;
+            this.$store.commit("decrProdInBasket", setting);
+          } else {
+            basketArr.splice(i, 1);
+            this.$store.commit("decrProdInBasket" , setting);
+          }
+        }
+      }
 
       // this.$store.commit("deleteFromBasket");
       // this.deleteFromBasket();
@@ -347,21 +348,21 @@ export default {
     changed(slideIndex) {
       this.currentSlide = slideIndex;
     },
-    deleteFromBasket() {
-        let that = this;
-        this.products.forEach(function (element, i) {
-          let basketArr = element.addedInBasket;
-          for (let i = 0; i < basketArr.length; i++) {
-            let element = basketArr[i];
+    // deleteFromBasket() {
+    //     let that = this;
+    //     this.products.forEach(function (element, i) {
+    //       let basketArr = element.addedInBasket;
+    //       for (let i = 0; i < basketArr.length; i++) {
+    //         let element = basketArr[i];
 
-            if (element.cnt === 0) {
-             
-              that.products.splice(i, 1);
-            }
-          }
-        });
-    
-    },
+    //         if (element.cnt === 0) {
+
+    //           that.products.splice(i, 1);
+    //         }
+    //       }
+    //     });
+
+    // },
   },
   created() {
     this.products = this.$store.getters.getAllProducts;
