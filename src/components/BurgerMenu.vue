@@ -1,6 +1,6 @@
 <template>
   <section class="overflow">
-    <div :class="['overlay', { 'overlay--active': showMenu }]"></div>
+    <!-- <div :class="['overlay', { 'overlay--active': showMenu }]"></div> -->
     <div :class="['b-menu', { 'b-menu--active': showMenu }]">
       <div class="b-menu_row">
         <nav class="b-menu_products products">
@@ -170,8 +170,9 @@ export default {
   }
 }
 .b-menu {
-  position: absolute;
+  position: fixed;
   left: 0;
+  top: 0;
   width: 100%;
   top: -100%;
   background: #1b1b1a;

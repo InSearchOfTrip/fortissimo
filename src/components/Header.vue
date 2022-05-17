@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="space"></div>
     <header class="header">
       <div class="container">
         <div class="header_group">
@@ -29,7 +30,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <span class="phone_text">098 404 04 30</span>
+            <span class="phone_text">{{ getPhone() }}</span>
           </a>
         </div>
 
@@ -87,14 +88,14 @@ export default {
   },
   data() {
     return {
-      showMenu: false,
+      showMenu: false,      
     };
   },
   methods: {
     swithBurger() {
       this.showMenu = !this.showMenu;
     },
-     _findElInBasket(el, func) {
+    _findElInBasket(el, func) {
       let result;
       el.addedInBasket.forEach((element) => {
         if (
@@ -102,39 +103,43 @@ export default {
           el.weightChoosed === element.weightChoosed
         ) {
           result = func(element);
-        }else{
+        } else {
           return false;
         }
       });
       return result;
     },
+    getPhone(){
+      let settingObj = this.$store.getters.getSetting;     
+      if(settingObj !== null){
+        return settingObj.contacts.phone;
+      }
+      
+    }    
   },
   computed: {
-    basket() {      
+    basket() {
       let productsInBasket = this.$store.getters.getBasket;
       let sumPrise = 0;
       let prodCount = 0;
-     
 
-      if (productsInBasket.length > 0) {        
-        productsInBasket.forEach((element) => {   
-
-          element.addedInBasket.forEach(function (el){  
-            let thisProdCnt = el.cnt;           
+      if (productsInBasket.length > 0) {
+        productsInBasket.forEach((element) => {
+          element.addedInBasket.forEach(function (el) {
+            let thisProdCnt = el.cnt;
             prodCount += thisProdCnt;
-            
+
             let choosedTypeArr = element["priseStructure"][el.typeChoosed];
-            let choosedWeightArr = choosedTypeArr["prises"];         
+            let choosedWeightArr = choosedTypeArr["prises"];
 
             let resultPrise = choosedWeightArr[el.weightChoosed];
-     
+
             if (typeof resultPrise === "object") {
               sumPrise += +resultPrise.new * thisProdCnt;
             } else {
-              sumPrise += (+resultPrise * thisProdCnt);
+              sumPrise += +resultPrise * thisProdCnt;
             }
           });
-        
         });
       }
       return {
@@ -142,7 +147,13 @@ export default {
         sum: sumPrise,
       };
     },
+    
+    
   },
+  beforeCreate() {
+    this.$store.dispatch('loadSetting');
+  }
+
 };
 </script>
 
@@ -156,8 +167,19 @@ export default {
   align-items: center;
   height: 100%;
 }
+
+.space{
+  height: 80px;
+  @include max-w(767) {
+    height: 60px;
+  }
+}
+
 .header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 2;
   background: #1b1b1a;
   border-bottom: 1px solid #6d6d6d;
@@ -233,7 +255,7 @@ export default {
 
     height: 100%;
     padding: 0 24px;
-   
+
     &_text {
       font-family: "Raleway";
       font-style: normal;
@@ -314,8 +336,8 @@ export default {
           transition: fill 0.2s ease-in-out;
         }
       }
-      &_count{
-        color: #FFFFFF
+      &_count {
+        color: #ffffff;
       }
     }
   }

@@ -25,11 +25,33 @@
               </div>
               <div class="control_group">
                 <button class="control_prev" @click="prev">
-                  <img src="../assets/images/products/arrow.png" alt="" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="14"
+                    viewBox="0 0 24 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M0.22528 7.8042C0.568878 8.17662 1.11035 8.4496 1.51858 8.73363C2.42116 9.36204 8.49003 13.5699 8.2635 13.2961C9.00877 14.1958 10.27 12.8965 9.5308 12.0028C9.21931 11.6268 8.60919 11.3611 8.2149 11.104C7.29669 10.5048 3.9192 8.3138 3.14583 7.81822C4.27759 7.89542 10.1627 8.00604 11.9727 8.04508C15.5901 8.12314 19.2875 8.43195 22.9011 8.24218C24.365 8.16498 24.3675 5.99449 22.9011 5.91753C19.2877 5.72755 15.5901 6.03635 11.9727 6.11463C10.226 6.15237 4.15194 6.25329 2.86686 6.36263C3.64213 5.64473 4.42453 4.93612 5.20807 4.2275C6.35816 3.18958 7.99633 2.19114 8.79419 0.840757C8.92491 0.619935 8.70845 0.343692 8.46918 0.409895C6.93811 0.828462 5.48727 2.30565 4.24635 3.27754C2.86796 4.35791 1.5392 5.50884 0.225405 6.67179C-0.100877 6.96205 -0.0482042 7.50769 0.22528 7.8042Z"
+                      fill="#1B1B1A"
+                    />
+                  </svg>
                 </button>
 
                 <button class="control_next" @click="next">
-                  <img src="../assets/images/products/arrow.png" alt="" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="14"
+                    viewBox="0 0 24 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M0.22528 7.8042C0.568878 8.17662 1.11035 8.4496 1.51858 8.73363C2.42116 9.36204 8.49003 13.5699 8.2635 13.2961C9.00877 14.1958 10.27 12.8965 9.5308 12.0028C9.21931 11.6268 8.60919 11.3611 8.2149 11.104C7.29669 10.5048 3.9192 8.3138 3.14583 7.81822C4.27759 7.89542 10.1627 8.00604 11.9727 8.04508C15.5901 8.12314 19.2875 8.43195 22.9011 8.24218C24.365 8.16498 24.3675 5.99449 22.9011 5.91753C19.2877 5.72755 15.5901 6.03635 11.9727 6.11463C10.226 6.15237 4.15194 6.25329 2.86686 6.36263C3.64213 5.64473 4.42453 4.93612 5.20807 4.2275C6.35816 3.18958 7.99633 2.19114 8.79419 0.840757C8.92491 0.619935 8.70845 0.343692 8.46918 0.409895C6.93811 0.828462 5.48727 2.30565 4.24635 3.27754C2.86796 4.35791 1.5392 5.50884 0.225405 6.67179C-0.100877 6.96205 -0.0482042 7.50769 0.22528 7.8042Z"
+                      fill="#1B1B1A"
+                    />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -67,6 +89,8 @@
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: false,
+                    centerMode: true,
+                    centerPadding: '30px',
                   },
                 },
               ],
@@ -95,117 +119,118 @@
                   <div class="slider-item_group">
                     <div class="slider-item_title" v-text="el.title"></div>
                     <div class="slider-item_taste" v-text="el.taste"></div>
-                    <div class="slider-item_choose item-choose">
-                      <div class="item-choose_container">
-                        <div class="item-choose_wrap">
-                          <div class="item-choose_weight choose-weight">
-                            <div
-                              class="choose-weight_item"
-                              v-for="(value, name) in el.priseStructure[
-                                el.typeChoosed
-                              ].prises"
-                              :key="name"
+                  </div>
+                </div>
+                <div>
+                  <div class="slider-item_choose item-choose">
+                    <div class="item-choose_container">
+                      <div class="item-choose_wrap">
+                        <div class="item-choose_weight choose-weight">
+                          <div
+                            class="choose-weight_item"
+                            v-for="(value, name) in el.priseStructure[
+                              el.typeChoosed
+                            ].prises"
+                            :key="name"
+                          >
+                            <label
+                              :class="{ active: name === el.weightChoosed }"
                             >
-                              <label
-                                :class="{ active: name === el.weightChoosed }"
-                              >
-                                <input
-                                  type="radio"
-                                  required
-                                  name="weight"
-                                  :value="name"
-                                  v-model="el.weightChoosed"
-                                />
-                                {{ name }} г
-                              </label>
-                            </div>
+                              <input
+                                type="radio"
+                                required
+                                name="weight"
+                                :value="name"
+                                v-model="el.weightChoosed"
+                              />
+                              {{ weightText(name) }}
+                            </label>
                           </div>
+                        </div>
 
-                          <div class="item-choose_type choose-type">
-                            <div
-                              class="choose-type_item"
-                              v-for="(value2, name2) in el.priseStructure"
-                              :key="name2"
+                        <div class="item-choose_type choose-type">
+                          <div
+                            class="choose-type_item"
+                            v-for="(value2, name2) in el.priseStructure"
+                            :key="name2"
+                          >
+                            <label
+                              :class="{ active: name2 === el.typeChoosed }"
                             >
-                              <label
-                                :class="{ active: name2 === el.typeChoosed }"
-                              >
-                                <input
-                                  type="radio"
-                                  required
-                                  name="type"
-                                  :value="name2"
-                                  v-model="el.typeChoosed"
-                                />
-                                {{ name2 === "ground" ? "мелена" : "зерна" }}
-                              </label>
-                            </div>
+                              <input
+                                type="radio"
+                                required
+                                name="type"
+                                :value="name2"
+                                v-model="el.typeChoosed"
+                              />
+                              {{ name2 === "ground" ? "мелена" : "зерна" }}
+                            </label>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                  <div class="slider-item_footer item-footer">
+                    <button class="item-footer_price">
+                      <template v-if="typeof calcPrise(el.id) === 'object'">
+                        <span class="new">{{ calcPrise(el.id).new }} грн</span
+                        ><span class="old">{{ calcPrise(el.id).old }} грн</span>
+                      </template>
 
-                <div class="slider-item_footer item-footer">
-                  <button class="item-footer_price">
-                    <template v-if="typeof calcPrise(el.id) === 'object'">
-                      <span class="new">{{ calcPrise(el.id).new }} грн</span
-                      ><span class="old">{{ calcPrise(el.id).old }} грн</span>
-                    </template>
-
-                    <template v-else>
-                      <span v-html="calcPrise(el.id)"></span>&nbsp;<span
-                        >грн</span
-                      >
-                    </template>
-                  </button>
-                  <div
-                    :class="[
-                      'item-footer_basket-group',
-                      { active: isBasketEmpty(el) },
-                    ]"
-                  >
-                    <div class="item-footer_basket-control basket-control">
+                      <template v-else>
+                        <span v-html="calcPrise(el.id)"></span>&nbsp;<span
+                          >грн</span
+                        >
+                      </template>
+                    </button>
+                    <div
+                      :class="[
+                        'item-footer_basket-group',
+                        { active: isBasketEmpty(el) },
+                      ]"
+                    >
+                      <div class="item-footer_basket-control basket-control">
+                        <button
+                          class="basket-control_minus"
+                          @click="decrementProduct(el)"
+                        >
+                          -
+                        </button>
+                        <button
+                          class="basket-control_plus"
+                          @click="incrementProduct(el)"
+                        >
+                          +
+                        </button>
+                      </div>
                       <button
-                        class="basket-control_minus"
-                        @click="decrementProduct(el)"
+                        :class="['item-footer_basket basket']"
+                        @click="addInBasket(el)"
                       >
-                        -
-                      </button>
-                      <button
-                        class="basket-control_plus"
-                        @click="incrementProduct(el)"
-                      >
-                        +
+                        <svg
+                          class="basket_img"
+                          width="22"
+                          height="26"
+                          viewBox="0 0 22 26"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M16.1187 5V5.34984C18.5888 5.61682 20.5424 7.73416 20.6989 10.3787L21.2399 19.5216C21.4227 22.6117 19.0972 25.25 16.1309 25.25H5.86905C2.90284 25.25 0.577238 22.6117 0.760089 19.5216L1.30108 10.3787C1.45754 7.73431 3.41094 5.61706 5.8809 5.34989V5C5.8809 2.66586 7.67556 0.75 9.91781 0.75H12.0818C14.324 0.75 16.1187 2.66586 16.1187 5ZM14.5367 5V5.32143H7.46287V5C7.46287 3.54705 8.5747 2.39286 9.91781 2.39286H12.0818C13.4248 2.39286 14.5367 3.54705 14.5367 5ZM2.88007 10.4795C2.9977 8.49159 4.55425 6.96429 6.41004 6.96429H15.5899C17.4457 6.96429 19.0023 8.49159 19.1199 10.4795L19.6609 19.6224C19.7895 21.7958 18.1576 23.6071 16.1309 23.6071H5.86905C3.84242 23.6071 2.21047 21.7958 2.33908 19.6224L2.88007 10.4795ZM7.46287 9.32143H5.8809V10.7143C5.8809 13.0484 7.67556 14.9643 9.91781 14.9643H12.0818C14.324 14.9643 16.1187 13.0484 16.1187 10.7143V9.32143H14.5367V10.7143C14.5367 12.1672 13.4248 13.3214 12.0818 13.3214H9.91781C8.57471 13.3214 7.46287 12.1672 7.46287 10.7143V9.32143Z"
+                            fill="#1B1B1A"
+                          />
+                        </svg>
+                        <span
+                          v-text="showBasketCnt(el)"
+                          class="basket_count"
+                          v-if="isBasketEmpty(el)"
+                        ></span>
+                        <span v-else class="basket_text">кошик</span>
                       </button>
                     </div>
-                    <button
-                      :class="['item-footer_basket basket']"
-                      @click="addInBasket(el)"
-                    >
-                      <svg
-                        class="basket_img"
-                        width="22"
-                        height="26"
-                        viewBox="0 0 22 26"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M16.1187 5V5.34984C18.5888 5.61682 20.5424 7.73416 20.6989 10.3787L21.2399 19.5216C21.4227 22.6117 19.0972 25.25 16.1309 25.25H5.86905C2.90284 25.25 0.577238 22.6117 0.760089 19.5216L1.30108 10.3787C1.45754 7.73431 3.41094 5.61706 5.8809 5.34989V5C5.8809 2.66586 7.67556 0.75 9.91781 0.75H12.0818C14.324 0.75 16.1187 2.66586 16.1187 5ZM14.5367 5V5.32143H7.46287V5C7.46287 3.54705 8.5747 2.39286 9.91781 2.39286H12.0818C13.4248 2.39286 14.5367 3.54705 14.5367 5ZM2.88007 10.4795C2.9977 8.49159 4.55425 6.96429 6.41004 6.96429H15.5899C17.4457 6.96429 19.0023 8.49159 19.1199 10.4795L19.6609 19.6224C19.7895 21.7958 18.1576 23.6071 16.1309 23.6071H5.86905C3.84242 23.6071 2.21047 21.7958 2.33908 19.6224L2.88007 10.4795ZM7.46287 9.32143H5.8809V10.7143C5.8809 13.0484 7.67556 14.9643 9.91781 14.9643H12.0818C14.324 14.9643 16.1187 13.0484 16.1187 10.7143V9.32143H14.5367V10.7143C14.5367 12.1672 13.4248 13.3214 12.0818 13.3214H9.91781C8.57471 13.3214 7.46287 12.1672 7.46287 10.7143V9.32143Z"
-                          fill="#1B1B1A"
-                        />
-                      </svg>
-                      <span
-                        v-text="showBasketCnt(el)"
-                        class="basket_count"
-                        v-if="isBasketEmpty(el)"
-                      ></span>
-                      <span v-else class="basket_text">кошик</span>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -330,7 +355,7 @@ export default {
             this.$store.commit("decrProdInBasket", setting);
           } else {
             basketArr.splice(i, 1);
-            this.$store.commit("decrProdInBasket" , setting);
+            this.$store.commit("decrProdInBasket", setting);
           }
         }
       }
@@ -348,21 +373,14 @@ export default {
     changed(slideIndex) {
       this.currentSlide = slideIndex;
     },
-    // deleteFromBasket() {
-    //     let that = this;
-    //     this.products.forEach(function (element, i) {
-    //       let basketArr = element.addedInBasket;
-    //       for (let i = 0; i < basketArr.length; i++) {
-    //         let element = basketArr[i];
 
-    //         if (element.cnt === 0) {
-
-    //           that.products.splice(i, 1);
-    //         }
-    //       }
-    //     });
-
-    // },
+    weightText(name) {
+      if (name === "1000") {
+        return "1 кг";
+      } else {
+        return `${name} г`;
+      }
+    },
   },
   created() {
     this.products = this.$store.getters.getAllProducts;
@@ -425,10 +443,20 @@ export default {
       background: transparent;
       border: 1px solid #d8d8d8;
       cursor: pointer;
+      &:hover {
+        border: 1px solid #f2000e;
+      }
+      &:active {
+        svg {
+          path {
+            fill: #f2000e;
+          }
+        }
+      }
     }
     &_next {
       border-left: none;
-      img {
+      svg {
         transform: rotate(180deg);
       }
     }
@@ -469,6 +497,9 @@ export default {
     padding: 20px 20px 16px;
     min-height: 60px;
     box-sizing: border-box;
+    @include max-w(767) {
+      padding: 20px 16px 15px;
+    }
     &_item {
       font-family: "Cuprum";
       font-style: normal;
@@ -483,6 +514,10 @@ export default {
 
       background: #f2f2f2;
       border-radius: 50px;
+      @include max-w(767) {
+        font-size: 12px;
+        line-height: 16px;
+      }
     }
   }
 
@@ -555,6 +590,9 @@ export default {
 
   &_slider {
     margin-bottom: 80px;
+    @include max-w(767) {
+      margin-bottom: 40px;
+    }
   }
 
   .products-slider {
@@ -574,7 +612,7 @@ export default {
       // width: 100%;
       min-height: 565px;
       @include max-w(767) {
-        min-height: 540px;
+        min-height: 509px;
       }
       &_container {
         display: flex;
@@ -597,6 +635,9 @@ export default {
 
       &_group {
         padding: 0 20px;
+        @include max-w(767) {
+          padding: 0 16px;
+        }
       }
 
       &_title {
@@ -614,6 +655,11 @@ export default {
         /* bg color */
 
         color: #1b1b1a;
+
+        @include max-w(767) {
+          font-size: 18px;
+          line-height: 22px;
+        }
       }
 
       &_taste {
@@ -625,6 +671,9 @@ export default {
         text-align: center;
         color: #1b1b1a;
         margin-bottom: 20px;
+        @include max-w(767) {
+          font-size: 13px;
+        }
       }
 
       .item-choose {
@@ -644,7 +693,7 @@ export default {
           font-size: 20px;
           line-height: 16px;
           color: #1b1b1a;
-          padding: 4px 10px;
+          padding: 4px 9px;
           border: 1px solid #d8d8d8;
           margin: 0 3px;
           &.active {
@@ -654,7 +703,11 @@ export default {
 
           @include max-w(1600) {
             font-size: 18px;
-            padding: 2px 10px;
+            padding: 2px 6px;
+          }
+          @include max-w(767) {
+            font-size: 12px;
+            line-height: 16px;
           }
         }
         &_wrap {
@@ -735,6 +788,10 @@ export default {
                   }
                 }
               }
+              &:active{
+                background: #D9000D;;
+              }
+           
               &-control {
                 overflow: hidden;
                 width: 0;
@@ -781,6 +838,11 @@ export default {
 
     .slick-track {
       display: flex;
+    }
+    .slick-slider {
+      @include max-w(767) {
+        margin-left: -30px;
+      }
     }
   }
 
