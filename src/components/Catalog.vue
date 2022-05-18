@@ -325,7 +325,7 @@ export default {
       let countDots = dots.querySelectorAll('li').length;
 
       if (dots && countDots !== this.dotsCtn ) {
-         console.log('event')
+  
         this.dotsCtn = countDots;
 
         let nodeControl = document.querySelector('.control');
@@ -357,7 +357,6 @@ export default {
 
         document.querySelector(".products-slider_wrapper").appendChild(control);
 
-        console.log(control);
       }
     },
   },

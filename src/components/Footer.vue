@@ -96,11 +96,11 @@
         <router-link
           class="pages_link"
           active-class="pages_link--active"
-          v-for="(el, i) in links"
+          v-for="(el, i) in getPagesRouts"
           :key="i"
           tag="a"
-          :to="el.href"
-          v-text="el.text"
+          to="/link"
+          v-text="el.title"
           >Контакти</router-link
         >
       </div>
@@ -176,6 +176,16 @@ export default {
         return "";
       }
     },
+  },
+  computed: {
+    getPagesRouts() {
+      let a = this.$store.getters.getPagesRouts;
+      console.log(a);
+      return a;
+    },
+  },
+  beforeCreate() {
+    this.$store.dispatch("loadPagesRouts");
   },
 };
 </script>
@@ -363,9 +373,9 @@ export default {
       &_link {
         margin: 0 10px;
         &:hover {
-          svg{
-            path{
-              fill : #f2000e;
+          svg {
+            path {
+              fill: #f2000e;
             }
           }
         }

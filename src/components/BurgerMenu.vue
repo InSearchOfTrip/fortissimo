@@ -45,13 +45,13 @@
 
       <div class="b-menu_row">
         <nav class="b-menu_pages pages">
-          <div class="pages_link-wrap" v-for="(el, i) in getPagesLink" :key="i">
+          <div class="pages_link-wrap" v-for="(el, i) in getPagesRouts" :key="i">
             <router-link
               class="pages_link"
               active-class="pages_link--active"
               tag="a"
-              :to="el.href"
-              v-text="el.text"
+              to="/link"
+              v-text="el.title"
               >Контакти</router-link
             >
           </div>
@@ -140,6 +140,14 @@ export default {
         return this.linksPages.mobile;
       }
     },
+    getPagesRouts(){
+      let a =  this.$store.getters.getPagesRouts;
+
+      return a;
+    }
+  },
+  beforeCreate() {
+    this.$store.dispatch('loadPagesRouts');
   },
 };
 </script>

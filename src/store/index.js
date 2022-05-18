@@ -34,7 +34,7 @@ const api = {
         .then((data) => {
           that.state.api.settings = data.settings;
           return data.settings;
-        });
+      });
     },
   },
   getters: {
@@ -2083,11 +2083,37 @@ const basket = {
 
 }
 
+const pages = {
+  state: {
+    pages_routs: []
+  },
+  actions:{
+      loadPagesRouts(){
+        console.log( "action");
+        let that = this;
+        fetch(`${domain}/api/pages`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {   
+          that.state.pages.pages_routs = data.data;      
+          return data.data;
+      });
+    }
+  },
+  getters: {
+    getPagesRouts(state){
+      return state.pages_routs;
+    }
+  }
+}
+
 export default new Vuex.Store({
   modules: {
     api,
     productsSlider,
     products,
-    basket
+    basket,
+    pages
   }
 })

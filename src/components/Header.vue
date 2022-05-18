@@ -148,7 +148,6 @@ export default {
       };
     },
     
-    
   },
   beforeCreate() {
     this.$store.dispatch('loadSetting');
