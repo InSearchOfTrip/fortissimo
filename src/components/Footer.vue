@@ -170,9 +170,9 @@ export default {
     },
     getSocial(name) {
       let settingObj = this.$store.getters.getSetting;
-      if (settingObj !== null) {        
+      if (settingObj !== null) {
         return settingObj.socials[name];
-      }else{
+      } else {
         return "";
       }
     },
@@ -362,6 +362,13 @@ export default {
       }
       &_link {
         margin: 0 10px;
+        &:hover {
+          svg{
+            path{
+              fill : #f2000e;
+            }
+          }
+        }
       }
     }
 

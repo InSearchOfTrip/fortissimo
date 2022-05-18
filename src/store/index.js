@@ -160,7 +160,8 @@ const productsSlider = {
 
 const products = {
   state: {
-    products: [{
+    products: [
+      {
         id: "0",
         title: "Бразилія Сантос 100% арабіка",
         img: "products/product_1.png",
@@ -535,6 +536,1395 @@ const products = {
       },
       {
         id: "10",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "11",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },    
+      {
+        id: "12",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "13",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "14",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "15",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "16",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "17",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "18",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "19",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "20",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "21",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+
+      {
+        id: "22",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "23",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "24",
+        title: "гондурас маркала ля паз 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "25",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "26",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "27",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "28",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "29",
+        title: "гондурас маркала ля паз 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "30",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "31",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "32",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },    
+      {
+        id: "33",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "34",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "35",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "36",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "37",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "38",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "39",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "40",
+        title: "ефіопія джимма 100% арабіка",
+        img: "products/product_2.png",
+        marks: [
+          "акція",
+        ],
+        taste: "гіркуватий смак із сильним кавовим ароматом",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": {
+                old: "55",
+                new: "50"
+              },
+              "500": {
+                old: "110",
+                new: "100"
+              },
+              "1000": {
+                old: "220",
+                new: "200"
+              }
+            }
+          },
+          grains: {
+            prises: {
+              "250": {
+                old: "50",
+                new: "45"
+              },
+              "500": {
+                old: "100",
+                new: "95"
+              },
+              "1000": {
+                old: "200",
+                new: "190"
+              }
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "41",
+        title: "Бразилія Сантос 100% арабіка",
+        img: "products/product_1.png",
+        marks: [
+          "хіт продажів",
+          "новинка"
+        ],
+        taste: "чорний шоколад",
+
+        type: [
+          "мелена",
+          "зерна"
+        ],
+        priseStructure: {
+          ground: {
+            prises: {
+              "250": "55",
+              "500": "110",
+              "1000": "220"
+            }
+          },
+          grains: {
+            prises: {
+              "250": "50",
+              "500": "100",
+              "1000": "200"
+            }
+          },
+        },
+        weightChoosed: "250",
+        typeChoosed: "grains",
+        addedInBasket: [
+
+        ]
+      },
+      {
+        id: "42",
         title: "ефіопія джимма 100% арабіка",
         img: "products/product_2.png",
         marks: [

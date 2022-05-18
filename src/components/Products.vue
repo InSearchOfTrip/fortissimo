@@ -24,7 +24,7 @@
                 ></span>
               </div>
               <div class="control_group">
-                <button class="control_prev" @click="prev">
+                <button class="control_prev" >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -66,6 +66,7 @@
               slidesToScroll: 1,
               arrows: false,
               infinite: false,
+              adaptiveHeight: false,
               responsive: [
                 {
                   breakpoint: 1600,
@@ -239,7 +240,7 @@
         </div>
 
         <div class="products_more products-more">
-          <router-link tag="a" to="" class="products-more_link">
+          <router-link tag="a" to="/catalog" class="products-more_link">
             переглянути більше
           </router-link>
         </div>
@@ -490,34 +491,6 @@ export default {
     margin-bottom: 60px;
     @include max-w(767) {
       display: block;
-    }
-  }
-  .head-markers {
-    display: flex;
-    padding: 20px 20px 16px;
-    min-height: 60px;
-    box-sizing: border-box;
-    @include max-w(767) {
-      padding: 20px 16px 15px;
-    }
-    &_item {
-      font-family: "Cuprum";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 16px;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #f2000e;
-
-      padding: 4px 10px;
-
-      background: #f2f2f2;
-      border-radius: 50px;
-      @include max-w(767) {
-        font-size: 12px;
-        line-height: 16px;
-      }
     }
   }
 
@@ -788,10 +761,10 @@ export default {
                   }
                 }
               }
-              &:active{
-                background: #D9000D;;
+              &:active {
+                background: #d9000d;
               }
-           
+
               &-control {
                 overflow: hidden;
                 width: 0;
@@ -842,6 +815,35 @@ export default {
     .slick-slider {
       @include max-w(767) {
         margin-left: -30px;
+      }
+    }
+
+    .head-markers {
+      display: flex;
+      padding: 20px 20px 16px;
+      min-height: 60px;
+      box-sizing: border-box;
+      @include max-w(767) {
+        padding: 20px 16px 15px;
+      }
+      &_item {
+        font-family: "Cuprum";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 16px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: #f2000e;
+
+        padding: 4px 10px;
+
+        background: #f2f2f2;
+        border-radius: 50px;
+        @include max-w(767) {
+          font-size: 12px;
+          line-height: 16px;
+        }
       }
     }
   }
