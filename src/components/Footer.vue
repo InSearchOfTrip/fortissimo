@@ -46,7 +46,7 @@
     <nav class="footer_pages pages">
       <div class="pages_social social">
         <div class="social_wrap">
-          <router-link class="social_link" tag="a" :to="getSocial('instagram')">
+          <router-link class="social_link" tag="a" target="_blank"> :to="getSocial('instagram')">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -63,7 +63,7 @@
             </svg>
           </router-link>
 
-          <router-link class="social_link" tag="a" :to="getSocial('facebook')">
+          <router-link class="social_link" tag="a" target="_blank"> :to="getSocial('facebook')">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
