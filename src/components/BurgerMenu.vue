@@ -141,9 +141,7 @@ export default {
       }
     },
     getPagesRouts(){
-      let a =  this.$store.getters.getPagesRouts;
-
-      return a;
+      return this.$store.getters.getPagesRouts;
     }
   },
   beforeCreate() {

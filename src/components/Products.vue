@@ -24,7 +24,7 @@
                 ></span>
               </div>
               <div class="control_group">
-                <button class="control_prev" >
+                <button class="control_prev" @click="prev">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -99,7 +99,7 @@
           >
             <div
               class="products-slider_container"
-              v-for="(el, i) in products"
+              v-for="(el, i) in getAllProducts"
               :key="i"
             >
               <div class="products-slider_item slider-item">
@@ -126,14 +126,14 @@
                   <div class="slider-item_choose item-choose">
                     <div class="item-choose_container">
                       <div class="item-choose_wrap">
-                        <div class="item-choose_weight choose-weight">
+                        <div class="item-choose_weight choose-weight">                         
                           <div
                             class="choose-weight_item"
                             v-for="(value, name) in el.priseStructure[
                               el.typeChoosed
                             ].prises"
-                            :key="name"
-                          >
+                            :key="name"                          >
+                         
                             <label
                               :class="{ active: name === el.weightChoosed }"
                             >
@@ -262,20 +262,25 @@ export default {
       currentSlide: 0,
     };
   },
-  computed: {},
+  computed: {
+    getAllProducts() {
+      let data = this.$store.getters.getAllProducts;
+      this.products = data;
+;
+      return data;
+    },
+  },
   methods: {
     getImg(rout) {
-      return require(`../assets/images/${rout}`);
+      return `https://fortissimo.devseonet.com//storage/${rout}`;
     },
     calcPrise(id) {
       let resultPrise = "";
       this.products.forEach((element) => {
         if (element.id === id) {
           let choosedTypeArr = element["priseStructure"][element.typeChoosed];
-          let choosedWeightArr = choosedTypeArr["prises"];
-
+          let choosedWeightArr = choosedTypeArr["prises"];          
           resultPrise = choosedWeightArr[element.weightChoosed];
-
           return resultPrise;
         }
       });
@@ -338,25 +343,27 @@ export default {
     decrementProduct(el) {
       let basketArr = el.addedInBasket;
 
-      for (let i = 0; i < basketArr.length; i++) {
-        let element = basketArr[i];
+      if (basketArr) {
+        for (let i = 0; i < basketArr.length; i++) {
+          let element = basketArr[i];
 
-        let setting = {
-          id: el.id,
-          typeChoosed: element.typeChoosed,
-          weightChoosed: element.weightChoosed,
-        };
+          let setting = {
+            id: el.id,
+            typeChoosed: element.typeChoosed,
+            weightChoosed: element.weightChoosed,
+          };
 
-        if (
-          element.typeChoosed === el.typeChoosed &&
-          element.weightChoosed === el.weightChoosed
-        ) {
-          if (element.cnt - 1 != 0) {
-            element.cnt--;
-            this.$store.commit("decrProdInBasket", setting);
-          } else {
-            basketArr.splice(i, 1);
-            this.$store.commit("decrProdInBasket", setting);
+          if (
+            element.typeChoosed === el.typeChoosed &&
+            element.weightChoosed === el.weightChoosed
+          ) {
+            if (element.cnt - 1 != 0) {
+              element.cnt--;
+              this.$store.commit("decrProdInBasket", setting);
+            } else {
+              basketArr.splice(i, 1);
+              this.$store.commit("decrProdInBasket", setting);
+            }
           }
         }
       }
@@ -383,8 +390,9 @@ export default {
       }
     },
   },
-  created() {
-    this.products = this.$store.getters.getAllProducts;
+  beforeCreate() {
+    this.$store.dispatch("loadProducts");
+    this.$store.commit("setNewFields");
   },
 };
 </script>

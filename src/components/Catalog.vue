@@ -13,7 +13,7 @@
           dots: true,
           arrows: false,
           adaptiveHeight: false,
-          rows: 3,
+          rows: cualityRows(),
           responsive: [
             {
               breakpoint: 1600,
@@ -36,7 +36,7 @@
               settings: {
                 slidesToShow: 1,
                 slidesToScroll: 1,
-                infinite: false,     
+                infinite: false,
                 rows: 8,
               },
             },
@@ -45,7 +45,7 @@
       >
         <div
           class="products-slider_container"
-          v-for="(el, i) in products"
+          v-for="(el, i) in getAllProducts"
           :key="i"
         >
           <div class="products-slider_item slider-item">
@@ -194,13 +194,30 @@ export default {
     return {
       products: [],
       currentSlide: 0,
-      dotsCtn: 0
+      dotsCtn: 0,
     };
   },
-  computed: {},
+  computed: {
+    getAllProducts() {
+      let data = this.$store.getters.getAllProducts;
+      this.products = data;
+      return data;
+    },
+  },
   methods: {
+    cualityRows(){
+      let length = this.products.length;
+
+      if( length >= 12){
+        return 3;
+      }else if(length >= 8 && length < 12){
+        return 2
+      }else{
+        return 1;
+      }
+    },
     getImg(rout) {
-      return require(`../assets/images/${rout}`);
+      return `https://fortissimo.devseonet.com//storage/${rout}`;
     },
     calcPrise(id) {
       let resultPrise = "";
@@ -319,18 +336,16 @@ export default {
       }
     },
     addArrows() {
-     
       let dots = document.querySelector(".slick-dots");
-   
-      let countDots = dots.querySelectorAll('li').length;
 
-      if (dots && countDots !== this.dotsCtn ) {
-  
+      let countDots = dots.querySelectorAll("li").length;
+
+      if (dots && countDots !== this.dotsCtn) {
         this.dotsCtn = countDots;
 
-        let nodeControl = document.querySelector('.control');
+        let nodeControl = document.querySelector(".control");
 
-        if( nodeControl){
+        if (nodeControl) {
           nodeControl.remove();
         }
 
@@ -356,12 +371,12 @@ export default {
         control.appendChild(next);
 
         document.querySelector(".products-slider_wrapper").appendChild(control);
-
       }
     },
   },
-  created() {
-    this.products = this.$store.getters.getAllProducts;
+  beforeCreate() {
+    this.$store.dispatch("loadProducts");
+    this.$store.commit("setNewFields");
   },
 };
 </script>
@@ -372,7 +387,7 @@ export default {
   overflow: hidden;
   margin-left: -15px;
   margin-right: -15px;
-  @include max-w(767){
+  @include max-w(767) {
     margin-left: 0;
     margin-right: 0;
   }
@@ -381,14 +396,14 @@ export default {
     max-width: 1740px;
     padding: 0 20px;
     margin: 0 auto;
-    @include max-w(767){
+    @include max-w(767) {
       padding: 0 16px;
     }
   }
 
   &_item {
     margin: 3.35%;
-    @include max-w(767){
+    @include max-w(767) {
       margin: 3.35% 0;
     }
   }
@@ -692,7 +707,7 @@ export default {
     display: flex;
     justify-content: center;
     margin: 0 15px;
-    @include max-w(767){
+    @include max-w(767) {
       margin: 0;
     }
 
