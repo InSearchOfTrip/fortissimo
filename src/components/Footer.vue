@@ -46,7 +46,7 @@
     <nav class="footer_pages pages">
       <div class="pages_social social">
         <div class="social_wrap">
-          <router-link class="social_link" tag="a"  :to="getSocial('instagram')" target="_blank">
+          <div class="social_link"  @click="getSocial('instagram')">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -61,9 +61,9 @@
                 fill="#666666"
               />
             </svg>
-          </router-link>
+          </div>
 
-          <router-link class="social_link" tag="a"  :to="getSocial('facebook')" target="_blank">
+          <div class="social_link"  @click="getSocial('facebook')">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -76,7 +76,7 @@
                 fill="#666666"
               />
             </svg>
-          </router-link>
+          </div>
         </div>
 
         <div class="pages_banks pages_banks--mob">
@@ -170,11 +170,11 @@ export default {
     },
     getSocial(name) {
       let settingObj = this.$store.getters.getSetting;
-      if (settingObj !== null) {       
-        return settingObj.socials[name];
-      } else {
-        return "";
-      }
+      console.log( settingObj );
+      if (settingObj !== null) {   
+        window.open(settingObj.socials[name] , "_blank");
+      }    
+      
     },
   },
   computed: {

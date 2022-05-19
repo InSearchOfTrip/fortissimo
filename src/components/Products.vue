@@ -266,7 +266,6 @@ export default {
     getAllProducts() {
       let data = this.$store.getters.getAllProducts;
       this.products = data;
-;
       return data;
     },
   },

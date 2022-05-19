@@ -210,7 +210,7 @@ export default {
 
       if( length >= 12){
         return 3;
-      }else if(length >= 8 && length < 12){
+      }else if( length >= 8 && length < 12 ){
         return 2
       }else{
         return 1;
@@ -337,8 +337,12 @@ export default {
     },
     addArrows() {
       let dots = document.querySelector(".slick-dots");
+      let countDots;
 
-      let countDots = dots.querySelectorAll("li").length;
+      if(dots){
+        dots.querySelectorAll("li").length;
+      }
+   
 
       if (dots && countDots !== this.dotsCtn) {
         this.dotsCtn = countDots;
