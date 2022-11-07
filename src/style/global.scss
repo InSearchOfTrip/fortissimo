@@ -1,0 +1,20 @@
+.item-list-coffee {
+  position: relative;
+  padding-left: 30px;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.9973 11.1397C19.0897 17.6126 10.1179 17.4996 10.1179 17.4996C2.25125 17.418 0.432741 12.5661 0.930049 11.1993C1.41557 9.86607 3.76328 8.91241 8.88459 10.4989C14.0062 12.0861 18.1366 10.8673 18.7678 10.5914C19.3986 10.3162 20.0475 10.4418 19.9973 11.1397Z' fill='%23D8D8D8'/%3E%3Cpath d='M0.00273779 8.86025C0.91082 2.38694 9.88275 2.50016 9.88275 2.50016C17.7501 2.58202 19.5681 7.43409 19.0707 8.80063C18.5845 10.1337 16.2372 11.0871 11.1159 9.50063C5.99486 7.91333 1.86434 9.13231 1.23291 9.4074C0.601954 9.68365 -0.0474833 9.55815 0.00273779 8.86025Z' fill='%23D8D8D8'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+  }
+
+}

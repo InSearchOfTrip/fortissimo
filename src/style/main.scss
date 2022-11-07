@@ -1,7 +1,15 @@
 @import "fonts";
 @import "reset";
+@import "grid";
+@import "global";
 
 
-
-
-
+.add-basket-anim {
+    width: 50px!important;  
+    height: auto!important; 
+    top: 9px !important;
+    right: 68px !important;
+    z-index: 5;
+    opacity: 0;
+   
+  }

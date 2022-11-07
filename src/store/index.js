@@ -16,200 +16,166 @@ function _findElInBasket(el, func) {
   return result;
 }
 
-const domain = "https://fortissimo.devseonet.com";
 
 Vue.use(Vuex);
 
 const api = {
   state: {
     settings: null,
+    pages: null,
+    gallery: null,
+    block_text: null,
   },
   actions: {
     loadSetting() {
       let that = this;
-      fetch(`${domain}/api/settings`)
+      fetch(`./api/settings`)
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          that.state.api.settings = data.settings;
-          return data.settings;
+          that.state.api.settings = data.settings;        
+        });
+    },
+    loadPages() {
+      let that = this;
+      fetch(`./api/pages`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          that.state.api.pages = data.data;       
+        });
+    },
+    loadGallery() {
+      let that = this;
+      fetch(`./api/galleries`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          that.state.api.gallery = data.data;
+          return data.data;
+        });
+    },
+    loadBlockText() {
+      let that = this;
+      fetch(`./api/block_texts`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          that.state.api.block_text = data.data;      
         });
     },
   },
   getters: {
     getSetting(state) {
       return state.settings;
+    },
+    getPages(state) {
+      return state.pages;
+    },
+    getGallery(state) {
+      return state.gallery;
+    },
+    getBlockText(state) {
+      return state.block_text;
     }
   },
-
-
 }
 
 const productsSlider = {
   state: {
-    products: [{
-        id: "1",
-        title: "дегустаційний сет “затятий кавоман”",
-        description: "Важко обрати каву? – Спробуйте кілька варіантів та оберіть для себе найкращий смак. В набір входить:",
-        img: "productsSlide/product_1.png",
-        prise_int: "399",
-        prise_text: "/ 100% арабіка",
-        propose: [{
-            name: "ефіопія джимма 100% арабіка / зерна / 500 г",
-            href: "/some"
-          },
-          {
-            name: "Lorem Ipsum is simply dummy text",
-            href: "/other"
-          },
-          {
-            name: "Гондурас маркала 100% арабіка / мелена / 250 г",
-            href: "/some2"
-          }
-        ],
-        detailsLink: "/details4",
-
-      },
-      {
-        id: "2",
-        title: "ефіопія джимма 100% арабіка",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-        img: "productsSlide/product_2.png",
-        prise_int: "150",
-        prise_text: "/ 100% арабіка",
-        propose: [{
-            name: "Lorem Ipsum is simply dummy text",
-            href: "/some"
-          },
-          {
-            name: "Бразилія сантос 100% арабіка / мелена / 250 г",
-            href: "/other"
-          },
-          {
-            name: "Гондурас маркала 100% арабіка / мелена / 250 г",
-            href: "/some2"
-          }
-        ],
-        detailsLink: "/details3",
-
-
-      },
-      {
-        id: "3",
-        title: "ефіопія джимма 100% арабіка",
-        description: "Важко обрати каву? – Спробуйте кілька варіантів та оберіть для себе найкращий смак. В набір входить:",
-        img: "productsSlide/product_2.png",
-        prise_int: "150",
-        prise_text: "/ 100% арабіка",
-        propose: [{
-            name: "Lorem Ipsum is simply dummy text",
-            href: "/some"
-          },
-          {
-            name: "Бразилія сантос 100% арабіка / мелена / 250 г",
-            href: "/other"
-          },
-          {
-            name: "Гондурас маркала 100% арабіка / мелена / 250 г",
-            href: "/some2"
-          }
-        ],
-        detailsLink: "/details2",
-
-
-      },
-
-      {
-        id: "4",
-        title: "ефіопія джимма 100% арабіка",
-        description: "Важко обрати каву? – Спробуйте кілька варіантів та оберіть для себе найкращий смак. В набір входить:",
-        img: "productsSlide/product_2.png",
-        prise_int: "150",
-        prise_text: "/ 100% арабіка",
-        propose: [{
-            name: "ефіопія джимма 100% арабіка / зерна / 500 г",
-            href: "/some"
-          },
-          {
-            name: "Бразилія сантос 100% арабіка / мелена / 250 г",
-            href: "/other"
-          },
-          {
-            name: "Гондурас маркала 100% арабіка / мелена / 250 г",
-            href: "/some2"
-          }
-        ],
-        detailsLink: "/details2",
-
-      },
+    products: [
     ],
 
 
   },
   getters: {
-    getProducts(state) {
+    getSliders(state) {
       return state.products;
     },
 
   },
   mutations: {},
-  actions: {},
+  actions: {
+    loadSliders() {
+      let that = this;
+      fetch(`./api/sliders`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {           
+          that.state.productsSlider.products = data.data;        
+        });
+    },
+  },
   modules: {}
 }
 
 const products = {
   state: {
     products: [],
-    
+
   },
   getters: {
     getAllProducts(state) {
       return state.products;
     },
+    getOneProduct: (state) => (id) => {
+      let result = [];
+      state.products.forEach((element) => {
+        if (id.replace(/[^0-9]/g, "") == element.id) {
+          result.push(element);
+        }
+      })
+      return result;
+
+    },
 
   },
   mutations: {
-    setNewFields(state) {    
+    setNewFields(state) {
       state.products.forEach((el) => {
-        Vue.set( el , "weightChoosed" , "250" );
-        Vue.set( el , "typeChoosed" , "grains" );   
-        Vue.set( el , "addedInBasket" , [] );        
+        Vue.set(el, "weightChoosed", "250");
+        Vue.set(el, "typeChoosed", "grains");
+        Vue.set(el, "addedInBasket", []);
 
-        Object.keys(el.priseStructure.grains.prises).forEach((element) => {        
+        Object.keys(el.priseStructure.grains.prises).forEach((element) => {
 
-         el.priseStructure.grains.prises[element.replace(/[^0-9]/g, '')] = el.priseStructure.grains.prises[element];
+          el.priseStructure.grains.prises[element.replace(/[^0-9]/g, '')] = el.priseStructure.grains.prises[element];
 
-         delete el.priseStructure.grains.prises[element];
+          delete el.priseStructure.grains.prises[element];
 
         });
 
-        Object.keys(el.priseStructure.ground.prises).forEach((element) => {      
- 
+        Object.keys(el.priseStructure.ground.prises).forEach((element) => {
+
           el.priseStructure.ground.prises[element.replace(/[^0-9]/g, '')] = el.priseStructure.ground.prises[element];
- 
-          delete el.priseStructure.ground.prises[element]; 
- 
+
+          delete el.priseStructure.ground.prises[element];
+
         });
 
-      
-
-
-
+      });
+    },
+    clearProductBasket(state) {
+      state.products.forEach((el) => {
+        el.addedInBasket = [];
       });
     }
   },
   actions: {
     loadProducts() {
       let that = this;
-      fetch(`${domain}/api/products`)
+      fetch(`./api/products`)
         .then((response) => {
           return response.json();
         })
         .then((data) => {
           that.state.products.products = data;
-          that.commit('setNewFields');
-          return data;
+          that.commit('setNewFields');        
         });
     },
 
@@ -294,6 +260,26 @@ const basket = {
         }
 
       })
+    },
+    deleteProduct(state, obj) {
+      state.basket.forEach(element => {
+        if (element.id === obj.id) {
+          let basketArr = element.addedInBasket;
+          for (let i = 0; i < basketArr.length; i++) {
+            let el = basketArr[i];
+            if (
+              el.typeChoosed === obj.typeChoosed &&
+              el.weightChoosed === obj.weightChoosed
+            ) {
+              basketArr.splice(i, 1);
+            }
+          }
+        }
+      });
+    },
+    clearBasket(state) {
+      state.basket = [];
+
     }
   },
   getters: {
@@ -312,25 +298,63 @@ const basket = {
 
 const pages = {
   state: {
-    pages_routs: []
+    pages_routs: [],
+    categories: []
   },
   actions: {
     loadPagesRouts() {
 
       let that = this;
-      fetch(`${domain}/api/pages`)
+      fetch(`./api/pages`)
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          that.state.pages.pages_routs = data.data;
-          return data.data;
+          that.state.pages.pages_routs = data.data;    
+        });
+    },
+    loadCategories() {   
+      let that = this;
+      fetch(`./api/categories`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          that.state.pages.categories = data;        
         });
     }
   },
   getters: {
     getPagesRouts(state) {
       return state.pages_routs;
+    },
+    getCategories(state) {
+      return state.categories;
+    },
+    getCategoryName: (state) => (id) => {    
+      let result = {}; 
+
+      if (state.categories.length > 0) {
+        for (let i = 0; i < state.categories.length; i++) {
+
+          if (state.categories[i].products.length > 0) {
+
+            for (let q = 0; q < state.categories[i].products.length; q++) { 
+        
+              if (state.categories[i].products[q].id === +id.slice(1)) {    
+         
+                result.categoryName = state.categories[i].name;
+                result.categoryLink = state.categories[i].slug;
+              }
+              
+            }
+
+          }
+
+        }
+      }    
+  
+      return result;
     }
   }
 }

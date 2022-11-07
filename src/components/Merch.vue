@@ -52,11 +52,11 @@
           </div>
 
           <div class="merch-stuff_mob">
-              <img
-                class="merch-stuff_all"
-                src="../assets/images/merch/allMerch.png"
-                alt=""
-              />
+            <img
+              class="merch-stuff_all"
+              src="../assets/images/merch/allMerch.png"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -67,10 +67,10 @@
 <script>
 export default {
   name: "Merch",
-  data(){
-    return{
+  data() {
+    return {
       screenWidth: 0,
-    }
+    };
   },
   methods: {
     fly(el, offset, dir) {
@@ -237,6 +237,13 @@ $rout: "../assets/images/merch/";
         padding: 15px 30px;
         border: 2px solid #f2000e;
 
+        &:hover {
+          background: #f2000e;
+        }
+        &:active {
+          background: #d9000d;
+        }
+        
         @include max-w(767) {
           padding: 15px 30px;
           margin-bottom: 80px;
@@ -300,15 +307,14 @@ $rout: "../assets/images/merch/";
       }
     }
 
-    &_all{
+    &_all {
       display: none;
       margin: 0 auto;
       max-width: 100%;
       object-fit: cover;
       height: auto;
-       @include max-w(767) {
+      @include max-w(767) {
         display: block;
-       
       }
     }
   }

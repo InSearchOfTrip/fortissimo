@@ -1,0 +1,14 @@
+.container-wrapper {
+  width: 100%;
+  max-width: 1494px;
+  padding: 0 16px;
+  margin: 0 auto;
+
+  &.large {
+    max-width: 1792px;
+  }
+
+  &.narrow {
+    max-width: 1195px;
+  }
+}

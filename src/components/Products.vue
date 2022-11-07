@@ -3,10 +3,10 @@
     <div class="container">
       <div class="products_wrapper">
         <div class="products_head">
-          <div class="products_title">100% арабіка</div>
+          <div class="products_title" v-text="setting.title">100% арабіка</div>
 
           <div class="products_group">
-            <div class="products_text">
+            <div class="products_text" v-text="setting.text">
               Має багатий, насичений смак та аромат, містить менше кофеїну ніж у
               робусті, проте має більше солоду у своєму складі
             </div>
@@ -61,41 +61,7 @@
           <VueSlickCarousel
             ref="carousel"
             @afterChange="changed"
-            v-bind="{
-              slidesToShow: 4,
-              slidesToScroll: 1,
-              arrows: false,
-              infinite: false,
-              adaptiveHeight: false,
-              responsive: [
-                {
-                  breakpoint: 1600,
-                  settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    infinite: false,
-                  },
-                },
-                {
-                  breakpoint: 1199,
-                  settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: false,
-                  },
-                },
-                {
-                  breakpoint: 767,
-                  settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    infinite: false,
-                    centerMode: true,
-                    centerPadding: '30px',
-                  },
-                },
-              ],
-            }"
+            v-bind="slider_setting"
           >
             <div
               class="products-slider_container"
@@ -103,7 +69,11 @@
               :key="i"
             >
               <div class="products-slider_item slider-item">
-                <div class="slider-item_top">
+                <router-link
+                  class="slider-item_top"
+                  tag="div"
+                  :to="`/productPage:${el.id}`"
+                >
                   <div class="slider-item_head item-head">
                     <div class="item-head_markers head-markers">
                       <div
@@ -121,19 +91,19 @@
                     <div class="slider-item_title" v-text="el.title"></div>
                     <div class="slider-item_taste" v-text="el.taste"></div>
                   </div>
-                </div>
+                </router-link>
                 <div>
                   <div class="slider-item_choose item-choose">
                     <div class="item-choose_container">
                       <div class="item-choose_wrap">
-                        <div class="item-choose_weight choose-weight">                         
+                        <div class="item-choose_weight choose-weight">
                           <div
                             class="choose-weight_item"
                             v-for="(value, name) in el.priseStructure[
                               el.typeChoosed
                             ].prises"
-                            :key="name"                          >
-                         
+                            :key="name"
+                          >
                             <label
                               :class="{ active: name === el.weightChoosed }"
                             >
@@ -175,14 +145,17 @@
                   <div class="slider-item_footer item-footer">
                     <button class="item-footer_price">
                       <template v-if="typeof calcPrise(el.id) === 'object'">
-                        <span class="new">{{ calcPrise(el.id).new }} грн</span
-                        ><span class="old">{{ calcPrise(el.id).old }} грн</span>
+                        <span
+                          class="new"
+                          v-text="calcPrise(el.id).new + ' грн'"
+                        ></span
+                        ><span
+                          class="old"
+                          v-text="calcPrise(el.id).old + ' грн'"
+                        ></span>
                       </template>
-
                       <template v-else>
-                        <span v-html="calcPrise(el.id)"></span>&nbsp;<span
-                          >грн</span
-                        >
+                        <span v-html="calcPrise(el.id)"></span>
                       </template>
                     </button>
                     <div
@@ -196,18 +169,46 @@
                           class="basket-control_minus"
                           @click="decrementProduct(el)"
                         >
-                          -
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M5 12H19"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
                         </button>
                         <button
                           class="basket-control_plus"
                           @click="incrementProduct(el)"
                         >
-                          +
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M8 1V15M1 8H15"
+                              stroke="black"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
                         </button>
                       </div>
                       <button
                         :class="['item-footer_basket basket']"
-                        @click="addInBasket(el)"
+                        @click="addInBasket(el , $event)"
                       >
                         <svg
                           class="basket_img"
@@ -239,8 +240,12 @@
           </VueSlickCarousel>
         </div>
 
-        <div class="products_more products-more">
-          <router-link tag="a" to="/catalog" class="products-more_link">
+        <div class="products_more products-more" v-show="setting.showMoreBtn">
+          <router-link
+            tag="a"
+            to="/catalog:vsi-tovari"
+            class="products-more_link"
+          >
             переглянути більше
           </router-link>
         </div>
@@ -256,6 +261,7 @@ import "vue-slick-carousel/dist/vue-slick-carousel.css";
 export default {
   name: "Products",
   components: { VueSlickCarousel },
+  props: ["slider_setting", "setting"],
   data() {
     return {
       products: [],
@@ -271,20 +277,36 @@ export default {
   },
   methods: {
     getImg(rout) {
-      return `https://fortissimo.devseonet.com//storage/${rout}`;
+      return `./storage/${rout}`;
     },
     calcPrise(id) {
       let resultPrise = "";
+
       this.products.forEach((element) => {
         if (element.id === id) {
           let choosedTypeArr = element["priseStructure"][element.typeChoosed];
-          let choosedWeightArr = choosedTypeArr["prises"];          
+          let choosedWeightArr = choosedTypeArr["prises"];
           resultPrise = choosedWeightArr[element.weightChoosed];
-          return resultPrise;
+          if (element.addedInBasket.length > 0) {
+            element.addedInBasket.forEach((el) => {
+              if (
+                el.typeChoosed === element.typeChoosed &&
+                el.weightChoosed === element.weightChoosed
+              ) {
+                if (!isNaN(+resultPrise)) {
+                  resultPrise = resultPrise * el.cnt;
+                }
+              }
+            });
+          }
         }
       });
 
-      return resultPrise;
+      if (!isNaN(+resultPrise)) {
+        return resultPrise + " грн";
+      } else {
+        return resultPrise;
+      }
     },
     isBasketEmpty(el) {
       let res = this._findElInBasket(el, function (element) {
@@ -312,7 +334,46 @@ export default {
         return element.cnt;
       });
     },
-    addInBasket(product) {
+    addInBasket(product , event) {
+      let img = document.createElement("img");
+      let staticImg;
+
+      img.src = "./storage/" + product.img;   
+   
+      event.path.forEach((el, i) => {
+        try {
+          if (el.classList.contains("products-slider_item")) {
+            staticImg = el.querySelector(".slider-item_img img");
+        
+            img.style.right =
+              document.querySelector("#app").offsetWidth -
+              el.offsetLeft -
+              el.offsetWidth +
+              "px";
+
+             let calc = document.querySelector(".products-slider").offsetTop ;                   
+                        
+
+             console.log( el.offsetTop);
+             window.scrollY  > calc ?  img.style.top = window.scrollY - calc + "px" :  img.style.top =  calc - window.scrollY +  "px";     
+
+
+
+              img.style.transition = "right 1s ease-in , top 1s ease-in, width 1s ease-in, opacity 1.2s ease-in";
+          }
+        } catch (e) {}
+      });
+
+      img.style.position = "fixed";
+      img.style.width = staticImg.offsetWidth + "px";
+      img.style.height = staticImg.offsetHeight + "px";
+
+      document.querySelector("#app").appendChild(img);
+
+      setTimeout(() => {
+        img.classList.add("add-basket-anim");
+      }, 0);
+
       let basketObj = {
         cnt: 1,
         weightChoosed: product.weightChoosed,
@@ -389,20 +450,11 @@ export default {
       }
     },
   },
-  beforeCreate() {
-    this.$store.dispatch("loadProducts");
-    this.$store.commit("setNewFields");
-  },
 };
 </script>
 
 <style scoped lang="scss">
 .products {
-  padding: 146px 0;
-  @include max-w(1199) {
-    padding: 100px 0;
-  }
-
   &_wrapper {
     max-width: 1740px;
     padding: 0 20px;
@@ -569,10 +621,6 @@ export default {
   }
 
   &_slider {
-    margin-bottom: 80px;
-    @include max-w(767) {
-      margin-bottom: 40px;
-    }
   }
 
   .products-slider {
@@ -597,7 +645,10 @@ export default {
       &_container {
         display: flex;
       }
-
+      &_top {
+        cursor: pointer;
+        position: relative;
+      }
       &_img {
         margin-bottom: 20px;
         img {
@@ -610,6 +661,10 @@ export default {
           -moz-user-select: none;
           -webkit-user-select: none;
           -ms-user-select: none;
+          transition: 1s ease-in-out;
+          &:hover {
+            transform: scale(1.06);
+          }
         }
       }
 
@@ -650,13 +705,14 @@ export default {
         line-height: 16px;
         text-align: center;
         color: #1b1b1a;
-        margin-bottom: 20px;
+
         @include max-w(767) {
           font-size: 13px;
         }
       }
 
       .item-choose {
+        padding-top: 20px;
         input {
           position: absolute;
           visibility: hidden;
@@ -729,8 +785,10 @@ export default {
 
           border-radius: 0;
 
-          svg {
-            margin-right: 13px;
+          &.basket {
+            svg {
+              margin-right: 13px;
+            }
           }
         }
 
@@ -816,8 +874,21 @@ export default {
       }
     }
 
-    .slick-track {
+    ::v-deep .slick-track {
       display: flex;
+      align-items: stretch;
+    }
+    ::v-deep .slick-slide {
+      height: auto;
+      & > div {
+        height: 100%;
+        & > div {
+          height: 100%;
+          & > div {
+            height: 100%;
+          }
+        }
+      }
     }
     .slick-slider {
       @include max-w(767) {
@@ -826,6 +897,10 @@ export default {
     }
 
     .head-markers {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
       display: flex;
       padding: 20px 20px 16px;
       min-height: 60px;
@@ -855,6 +930,12 @@ export default {
     }
   }
 
+  &_more {
+    margin-top: 80px;
+    @include max-w(767) {
+      margin-top: 40px;
+    }
+  }
   &-more {
     text-align: center;
     &_link {

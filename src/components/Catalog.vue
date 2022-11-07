@@ -1,55 +1,23 @@
 <template>
-  <div class="products_slider products-slider">
+  <div class="products_slider products-slider" :class="`rows_${cualityRows()}`">
     <div class="products-slider_wrapper">
       <VueSlickCarousel
         ref="carousel"
         @afterChange="changed"
         @reInit="addArrows"
-        v-bind="{
-          slidesToShow: 4,
-          slidesToScroll: 4,
-          infinite: false,
-          swipe: false,
-          dots: true,
-          arrows: false,
-          adaptiveHeight: false,
-          rows: cualityRows(),
-          responsive: [
-            {
-              breakpoint: 1600,
-              settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                infinite: false,
-              },
-            },
-            {
-              breakpoint: 1199,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                infinite: false,
-              },
-            },
-            {
-              breakpoint: 767,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                infinite: false,
-                rows: 8,
-              },
-            },
-          ],
-        }"
+        v-bind="{ ...sliderSettings, rows: cualityRows() }"
       >
         <div
           class="products-slider_container"
-          v-for="(el, i) in getAllProducts"
+          v-for="(el, i) in getProducts"
           :key="i"
         >
           <div class="products-slider_item slider-item">
-            <div class="slider-item_top">
+            <router-link
+              class="slider-item_top"
+              tag="div"
+              :to="`/productPage:${el.id}`"
+            >
               <div class="slider-item_head item-head">
                 <div class="item-head_markers head-markers">
                   <div
@@ -67,7 +35,7 @@
                 <div class="slider-item_title" v-text="el.title"></div>
                 <div class="slider-item_taste" v-text="el.taste"></div>
               </div>
-            </div>
+            </router-link>
             <div>
               <div class="slider-item_choose item-choose">
                 <div class="item-choose_container">
@@ -138,18 +106,46 @@
                       class="basket-control_minus"
                       @click="decrementProduct(el)"
                     >
-                      -
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M5 12H19"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                     </button>
                     <button
                       class="basket-control_plus"
                       @click="incrementProduct(el)"
                     >
-                      +
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M8 1V15M1 8H15"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                     </button>
                   </div>
                   <button
                     :class="['item-footer_basket basket']"
-                    @click="addInBasket(el)"
+                    @click="addInBasket(el, $event)"
                   >
                     <svg
                       class="basket_img"
@@ -184,12 +180,15 @@
 </template>
 
 <script>
+import Vue from "vue";
+import { h } from "vue";
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 
 export default {
   name: "Catalog",
   components: { VueSlickCarousel },
+  props: ["sortedPoducts", "sliderSettings", "setSortOptions"],
   data() {
     return {
       products: [],
@@ -198,36 +197,74 @@ export default {
     };
   },
   computed: {
-    getAllProducts() {
-      let data = this.$store.getters.getAllProducts;
-      this.products = data;
-      return data;
+    // getAllProducts() {
+    //   let data = this.$store.getters.getAllProducts;
+    //   this.products = data;
+    //   return data;
+    // },
+    getProducts() {
+      let result;
+
+      if (this.$route.params.slug.slice(1) === "vsi-tovari") {
+        result = JSON.parse(JSON.stringify(this.$store.getters.getAllProducts));
+      } else {
+        this.$store.getters.getCategories.forEach((el) => {
+          if (el.slug === this.$route.params.slug.slice(1)) {
+            result = JSON.parse(JSON.stringify(el.products));
+
+            result.forEach((el) => {
+              Vue.set(el, "weightChoosed", "250");
+              Vue.set(el, "typeChoosed", "grains");
+              Vue.set(el, "addedInBasket", []);
+
+              Object.keys(el.priseStructure.grains.prises).forEach(
+                (element) => {
+                  el.priseStructure.grains.prises[
+                    element.replace(/[^0-9]/g, "")
+                  ] = el.priseStructure.grains.prises[element];
+
+                  delete el.priseStructure.grains.prises[element];
+                }
+              );
+
+              Object.keys(el.priseStructure.ground.prises).forEach(
+                (element) => {
+                  el.priseStructure.ground.prises[
+                    element.replace(/[^0-9]/g, "")
+                  ] = el.priseStructure.ground.prises[element];
+
+                  delete el.priseStructure.ground.prises[element];
+                }
+              );
+            });
+          }
+        });
+      }
+
+      result = this.sortedMain(this.setSortOptions, result);
+
+      if (result) {
+        this.products = result;
+      }
+
+      return result;
+    },
+    sortOptions() {
+      this.sortedOptions = this.setSortOptions;
     },
   },
   methods: {
-    cualityRows(){
-      let length = this.products.length;
-
-      if( length >= 12){
-        return 3;
-      }else if( length >= 8 && length < 12 ){
-        return 2
-      }else{
-        return 1;
-      }
-    },
     getImg(rout) {
-      return `https://fortissimo.devseonet.com//storage/${rout}`;
+      return `./storage/${rout}`;
     },
+
     calcPrise(id) {
       let resultPrise = "";
       this.products.forEach((element) => {
         if (element.id === id) {
           let choosedTypeArr = element["priseStructure"][element.typeChoosed];
           let choosedWeightArr = choosedTypeArr["prises"];
-
           resultPrise = choosedWeightArr[element.weightChoosed];
-
           return resultPrise;
         }
       });
@@ -261,7 +298,51 @@ export default {
         return element.cnt;
       });
     },
-    addInBasket(product) {
+    addInBasket(product, event) {
+      let img = document.createElement("img");
+      let staticImg;
+
+      img.src = "./storage/" + product.img;
+
+      event.path.forEach((el, i) => {
+        try {
+          if (el.classList.contains("slider-item")) {
+            staticImg = el.querySelector(".slider-item_img img");
+
+            console.log(el.parentElement);
+            img.style.right =
+              document.querySelector("#app").offsetWidth -
+              el.offsetLeft -
+              el.offsetWidth +
+              "px";
+
+            let calc =
+              document.querySelector(".header").offsetHeight +
+              document.querySelector(".bread-crumbs").offsetHeight +
+              document.querySelector(".products").offsetHeight +
+              document.querySelector(".sorter").offsetHeight +
+              el.offsetTop;
+
+            window.scrollY > calc
+              ? (img.style.top = window.scrollY - calc + "px")
+              : (img.style.top = calc - window.scrollY + "px");
+
+            img.style.transition =
+              "right 1s ease-in , top 1s ease-in, width 1s ease-in, opacity 1.2s ease-in";
+          }
+        } catch (e) {}
+      });
+
+      img.style.position = "fixed";
+      img.style.width = staticImg.offsetWidth + "px";
+      img.style.height = staticImg.offsetHeight + "px";
+
+      document.querySelector("#app").appendChild(img);
+
+      setTimeout(() => {
+        img.classList.add("add-basket-anim");
+      }, 0);
+
       let basketObj = {
         cnt: 1,
         weightChoosed: product.weightChoosed,
@@ -336,51 +417,181 @@ export default {
       }
     },
     addArrows() {
-      let dots = document.querySelector(".slick-dots");
-      let countDots;
+      this.$nextTick(() => {
+        let dots = document.querySelector(".slick-dots");
+        let countDots;
 
-      if(dots){
-        dots.querySelectorAll("li").length;
-      }
-   
-
-      if (dots && countDots !== this.dotsCtn) {
-        this.dotsCtn = countDots;
-
-        let nodeControl = document.querySelector(".control");
-
-        if (nodeControl) {
-          nodeControl.remove();
+        if (dots) {
+          countDots = dots.querySelectorAll("li").length;
         }
 
-        let control = document.createElement("div");
-        control.classList.add("control");
+        if (dots && countDots !== this.dotsCtn) {
+          this.dotsCtn = countDots;
 
-        let prev = document.createElement("button");
-        let next = document.createElement("button");
+          let nodeControl = document.querySelector(".control");
 
-        prev.classList.add("control_prev");
-        next.classList.add("control_next");
+          if (nodeControl) {
+            nodeControl.remove();
+          }
 
-        prev.onclick = this.prev;
-        next.onclick = this.next;
+          let control = document.createElement("div");
+          control.classList.add("control");
 
-        prev.innerHTML =
-          '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none" > <path d="M0.22528 7.8042C0.568878 8.17662 1.11035 8.4496 1.51858 8.73363C2.42116 9.36204 8.49003 13.5699 8.2635 13.2961C9.00877 14.1958 10.27 12.8965 9.5308 12.0028C9.21931 11.6268 8.60919 11.3611 8.2149 11.104C7.29669 10.5048 3.9192 8.3138 3.14583 7.81822C4.27759 7.89542 10.1627 8.00604 11.9727 8.04508C15.5901 8.12314 19.2875 8.43195 22.9011 8.24218C24.365 8.16498 24.3675 5.99449 22.9011 5.91753C19.2877 5.72755 15.5901 6.03635 11.9727 6.11463C10.226 6.15237 4.15194 6.25329 2.86686 6.36263C3.64213 5.64473 4.42453 4.93612 5.20807 4.2275C6.35816 3.18958 7.99633 2.19114 8.79419 0.840757C8.92491 0.619935 8.70845 0.343692 8.46918 0.409895C6.93811 0.828462 5.48727 2.30565 4.24635 3.27754C2.86796 4.35791 1.5392 5.50884 0.225405 6.67179C-0.100877 6.96205 -0.0482042 7.50769 0.22528 7.8042Z" fill="#1B1B1A" /> </svg>';
-        next.innerHTML =
-          '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none" > <path d="M0.22528 7.8042C0.568878 8.17662 1.11035 8.4496 1.51858 8.73363C2.42116 9.36204 8.49003 13.5699 8.2635 13.2961C9.00877 14.1958 10.27 12.8965 9.5308 12.0028C9.21931 11.6268 8.60919 11.3611 8.2149 11.104C7.29669 10.5048 3.9192 8.3138 3.14583 7.81822C4.27759 7.89542 10.1627 8.00604 11.9727 8.04508C15.5901 8.12314 19.2875 8.43195 22.9011 8.24218C24.365 8.16498 24.3675 5.99449 22.9011 5.91753C19.2877 5.72755 15.5901 6.03635 11.9727 6.11463C10.226 6.15237 4.15194 6.25329 2.86686 6.36263C3.64213 5.64473 4.42453 4.93612 5.20807 4.2275C6.35816 3.18958 7.99633 2.19114 8.79419 0.840757C8.92491 0.619935 8.70845 0.343692 8.46918 0.409895C6.93811 0.828462 5.48727 2.30565 4.24635 3.27754C2.86796 4.35791 1.5392 5.50884 0.225405 6.67179C-0.100877 6.96205 -0.0482042 7.50769 0.22528 7.8042Z" fill="#1B1B1A" /> </svg>';
+          let prev = document.createElement("button");
+          let next = document.createElement("button");
 
-        control.appendChild(prev);
-        control.appendChild(dots);
-        control.appendChild(next);
+          prev.classList.add("control_prev");
+          next.classList.add("control_next");
 
-        document.querySelector(".products-slider_wrapper").appendChild(control);
+          prev.onclick = this.prev;
+          next.onclick = this.next;
+
+          prev.innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none" > <path d="M0.22528 7.8042C0.568878 8.17662 1.11035 8.4496 1.51858 8.73363C2.42116 9.36204 8.49003 13.5699 8.2635 13.2961C9.00877 14.1958 10.27 12.8965 9.5308 12.0028C9.21931 11.6268 8.60919 11.3611 8.2149 11.104C7.29669 10.5048 3.9192 8.3138 3.14583 7.81822C4.27759 7.89542 10.1627 8.00604 11.9727 8.04508C15.5901 8.12314 19.2875 8.43195 22.9011 8.24218C24.365 8.16498 24.3675 5.99449 22.9011 5.91753C19.2877 5.72755 15.5901 6.03635 11.9727 6.11463C10.226 6.15237 4.15194 6.25329 2.86686 6.36263C3.64213 5.64473 4.42453 4.93612 5.20807 4.2275C6.35816 3.18958 7.99633 2.19114 8.79419 0.840757C8.92491 0.619935 8.70845 0.343692 8.46918 0.409895C6.93811 0.828462 5.48727 2.30565 4.24635 3.27754C2.86796 4.35791 1.5392 5.50884 0.225405 6.67179C-0.100877 6.96205 -0.0482042 7.50769 0.22528 7.8042Z" fill="#1B1B1A" /> </svg>';
+          next.innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14" fill="none" > <path d="M0.22528 7.8042C0.568878 8.17662 1.11035 8.4496 1.51858 8.73363C2.42116 9.36204 8.49003 13.5699 8.2635 13.2961C9.00877 14.1958 10.27 12.8965 9.5308 12.0028C9.21931 11.6268 8.60919 11.3611 8.2149 11.104C7.29669 10.5048 3.9192 8.3138 3.14583 7.81822C4.27759 7.89542 10.1627 8.00604 11.9727 8.04508C15.5901 8.12314 19.2875 8.43195 22.9011 8.24218C24.365 8.16498 24.3675 5.99449 22.9011 5.91753C19.2877 5.72755 15.5901 6.03635 11.9727 6.11463C10.226 6.15237 4.15194 6.25329 2.86686 6.36263C3.64213 5.64473 4.42453 4.93612 5.20807 4.2275C6.35816 3.18958 7.99633 2.19114 8.79419 0.840757C8.92491 0.619935 8.70845 0.343692 8.46918 0.409895C6.93811 0.828462 5.48727 2.30565 4.24635 3.27754C2.86796 4.35791 1.5392 5.50884 0.225405 6.67179C-0.100877 6.96205 -0.0482042 7.50769 0.22528 7.8042Z" fill="#1B1B1A" /> </svg>';
+
+          control.appendChild(prev);
+          control.appendChild(dots);
+          control.appendChild(next);
+
+          document
+            .querySelector(".products-slider_wrapper")
+            .appendChild(control);
+        }
+      });
+    },
+    cualityRows() {
+      if (this.products) {
+        let length = this.products.length;
+
+        if (length >= 12) {
+          return 3;
+        } else if (length >= 8 && length < 12) {
+          return 2;
+        } else {
+          return 1;
+        }
       }
     },
-  },
-  beforeCreate() {
-    this.$store.dispatch("loadProducts");
-    this.$store.commit("setNewFields");
+    sortMarks(products, mark) {
+      return products.sort((a) => {
+        let result = a.marks.some((el) => {
+          return el === mark;
+        });
+        return result ? -1 : 1;
+      });
+    },
+    getLesPrise(prod) {
+      let lessPrise = null;
+
+      for (let el in prod.priseStructure) {
+        for (let el2 in prod.priseStructure[el].prises) {
+          if (!isNaN(+prod.priseStructure[el].prises[el2])) {
+            if (lessPrise === null) {
+              lessPrise = +prod.priseStructure[el].prises[el2];
+            } else if (+prod.priseStructure[el].prises[el2] < lessPrise) {
+              lessPrise = +prod.priseStructure[el].prises[el2];
+            }
+          }
+        }
+      }
+
+      return lessPrise;
+    },
+    getBiggerPrise(prod) {
+      let biggerPrise = null;
+
+      for (let el in prod.priseStructure) {
+        for (let el2 in prod.priseStructure[el].prises) {
+          if (!isNaN(+prod.priseStructure[el].prises[el2])) {
+            if (biggerPrise === null) {
+              biggerPrise = +prod.priseStructure[el].prises[el2];
+            } else if (+prod.priseStructure[el].prises[el2] > biggerPrise) {
+              biggerPrise = +prod.priseStructure[el].prises[el2];
+            }
+          }
+        }
+      }
+
+      return biggerPrise;
+    },
+    cheapFirst(products) {
+      return products.sort((a, b) => {
+        let lessPriseA = this.getLesPrise(a);
+        let lessPriseB = this.getLesPrise(b);
+
+        return lessPriseA > lessPriseB ? 1 : -1;
+      });
+    },
+    expensiveFirst(products) {
+      return products.sort((a, b) => {
+        let biggerPriseA = this.getBiggerPrise(a);
+        let biggerPriseB = this.getBiggerPrise(b);
+
+        return biggerPriseA < biggerPriseB ? 1 : -1;
+      });
+    },
+
+    sortByType(arr, setting) {
+      let sortedArr = arr.filter((el) => {
+        for (let key in el.priseStructure) {
+          if (setting.type.indexOf(key) !== -1) {
+            return true;
+          }
+        }
+      });
+
+      return sortedArr;
+    },
+    sortByWeight(arr) {
+      let sortedArr = arr.filter((el) => {
+        for (let key in el.priseStructure) {
+          for (let key2 in el.priseStructure[key].prises) {
+            if (!isNaN(+el.priseStructure[key].prises[key2])) {
+              return true;
+            }
+          }
+        }
+      });
+
+      return sortedArr;
+    },
+    sortedMain(setting, arr) {
+      let result = arr;
+
+      if (setting.type.length > 0) {
+        result = this.sortByType(result, setting);
+      }
+
+      if (setting.weight.length > 0) {
+        result = this.sortByWeight(result);
+      }
+
+      switch (setting.sortType) {
+        case "Новинка":
+          return this.sortMarks(result, "Новинка");
+          break;
+
+        case "Хіт продажів":
+          return this.sortMarks(result, "Хіт продажів");
+          break;
+
+        case "Акція":
+          return this.sortMarks(result, "Акція");
+          break;
+
+        case "Спочатку дешеві":
+          return this.cheapFirst(result);
+          break;
+
+        case "Спочатку дорогі":
+          return this.expensiveFirst(result);
+          break;
+        default:
+          return result;
+      }
+    },
   },
 };
 </script>
@@ -426,12 +637,22 @@ export default {
       display: flex;
     }
 
+    &_top {
+      position: relative;
+      cursor: pointer;
+    }
+
     &_img {
+      position: relative;
       margin-bottom: 20px;
+      padding-bottom: 90%;
       img {
-        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: contain;
 
         -webkit-user-drag: none;
         user-select: none;
@@ -478,13 +699,14 @@ export default {
       line-height: 16px;
       text-align: center;
       color: #1b1b1a;
-      margin-bottom: 20px;
+
       @include max-w(767) {
         font-size: 13px;
       }
     }
 
     .item-choose {
+      padding-top: 20px;
       input {
         position: absolute;
         visibility: hidden;
@@ -556,10 +778,6 @@ export default {
         text-transform: uppercase;
 
         border-radius: 0;
-
-        svg {
-          margin-right: 13px;
-        }
       }
 
       &_price {
@@ -587,6 +805,9 @@ export default {
             border: none;
             cursor: pointer;
             width: 100%;
+            svg {
+              margin-right: 13px;
+            }
             &:hover {
               background: #f2000e;
               color: #ffffff;
@@ -645,6 +866,11 @@ export default {
   }
 
   .head-markers {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+
     display: flex;
     padding: 20px 20px 16px;
     min-height: 60px;
@@ -739,6 +965,66 @@ export default {
     &_next {
       svg {
         transform: rotate(180deg);
+      }
+    }
+  }
+
+  ::v-deep .slick-track {
+    display: flex;
+    align-items: stretch;
+  }
+
+  &.rows {
+    &_3 {
+      ::v-deep .slick-slide {
+        height: max-content;
+        & > div {
+          height: calc(100% / 3);
+          @include max-w(767) {
+            height: auto;
+          }
+          & > div {
+            height: calc(100% - 3.35%);
+            & > div {
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+    &_2 {
+      ::v-deep .slick-slide {
+        height: max-content;
+        & > div {
+          height: calc(100% / 2);
+          @include max-w(767) {
+            height: auto;
+          }
+          & > div {
+            height: calc(100% - 3.35%);
+
+            & > div {
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+    &_1 {
+      ::v-deep .slick-slide {
+        height: max-content;
+        & > div {
+          height: 100%;
+          @include max-w(767) {
+            height: auto;
+          }
+          & > div {
+            height: calc(100% - 3.35%);
+            & > div {
+              height: 100%;
+            }
+          }
+        }
       }
     }
   }

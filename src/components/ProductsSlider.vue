@@ -1,7 +1,7 @@
 <template>
   <section class="productsSlider">
     <div class="productsSlider_wrapper">
-      <div class="slider-item_slider">
+      <div class="slider-item_slider">     
         <VueSlickCarousel
           ref="carousel"
           @beforeChange="bfChange"
@@ -17,21 +17,21 @@
         >
           <div
             :class="['slider-item_container', { topIndex: changeIndex(i) }]"
-            v-for="(el, i) in products"
+            v-for="(el, i) in getSliders"
             :key="el.id"
           >
             <div class="productsSlider_item slider-item" ref="sliderItem">
               <div class="slider-item_img">
-                <img :src="getImg(`${el.img}`)" alt="" />
+                <img :src="getImg(`${el.image}`)" alt="" />
               </div>
               <div class="slider-item_info item-info">
                 <div class="item-info_title">
                   <h4 v-html="el.title"></h4>
                 </div>
                 <div class="item-info_prise prise">
-                  <span class="prise_int">{{ el.prise_int }} грн</span>
+                  <span class="prise_int">{{ el.red_subtitle }}</span>
                   <span>&nbsp;</span>
-                  <span class="prise_text" v-html="el.prise_text"></span>
+                  <span class="prise_text">/ {{ el.black_subtitle}}</span>
                 </div>
                 <div class="item-info_propose propose">
                   <p class="propose_text" v-html="el.description">
@@ -42,10 +42,10 @@
                     <router-link
                       class="propose-links_item"
                       tag="a"
-                      :to="el2.href"
-                      v-for="(el2, i2) in el.propose"
+                      :to="`/productPage:${el2.id}`"
+                      v-for="(el2, i2) in el.products"
                       :key="i2"
-                      v-html="el2.name"
+                      v-html="el2.meta_title"
                     >
                     </router-link>
                   </nav>
@@ -54,9 +54,9 @@
                     <router-link
                       class="control_detail"
                       tag="a"
-                      :to="el.detailsLink"
-                    >
-                      детальніше
+                      :to="el.button_link"
+                      v-text="el.button_text"
+                    >                      
                     </router-link>
 
                     <div class="control_slides control-slides">
@@ -68,7 +68,7 @@
                         >/
                         <span
                           class="slides-counter_max"
-                          v-html="products.length"
+                          v-html="getSliders.length"
                         ></span>
                       </div>
                       <div class="control-slides_group">
@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     getImg(rout) {
-      return require(`../assets/images/${rout}`);
+      return`./storage/${rout}`;
     },
     isShow(i) {
       return this.slideActive === i;
@@ -163,13 +163,14 @@ export default {
       return i + 1 === this.slideActive;
     },
   },
-  created() {
-    this.products = this.$store.getters.getProducts;
+  computed:{
+    getSliders(){
+      let res = this.$store.getters.getSliders;
+      console.log(res[0].slides);
+      return res[0].slides;
+    }
+  }
 
-    // setInterval(()=>{
-    //   this.nextSlide();
-    // },3000);
-  },
 };
 </script>
 
@@ -229,7 +230,7 @@ export default {
       @include max-w(767) {
         position: static;
         width: 100%;
-        padding-bottom: 67px;
+        padding-bottom: 67px;        
       }
 
       img {
@@ -243,12 +244,14 @@ export default {
 
         object-fit: contain;
         margin: 0 auto;
+        
         @include max-w(1199) {
           width: 100%;
         }
 
         @include max-w(767) {
           position: static;
+          max-height: 50vh;
         }
       }
     }
@@ -389,8 +392,20 @@ export default {
         padding: 17px 32px;
         border: 2px solid #f2000e;
 
+        &:hover{
+          background: #F2000E;
+        }
+        &:active{
+          background: #D9000D;
+        }
+
         @include max-w(767) {
           padding: 15px 30px;
+        }
+
+        @include max-w(500){
+          padding: 15px 5px;
+          font-size: 16px;
         }
       }
       &-slides {
@@ -439,6 +454,8 @@ export default {
 
         &_counter {
           margin-right: 30px;
+          margin-left: 10px;
+          flex-shrink: 0;
           @include max-w(991) {
             margin-right: 17px;
           }

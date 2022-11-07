@@ -3,6 +3,16 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import Vuelidate from 'vuelidate'
+
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
+
+Vue.use(Vuelidate)
+
+Vue.component("Header", Header);
+Vue.component("Footer", Footer);
+
 Vue.config.productionTip = false
 
 
@@ -16,7 +26,18 @@ const main = new Vue({
   router,
   
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
+
+main.$store.dispatch("loadSliders");
+main.$store.dispatch("loadProducts");
+main.$store.commit("setNewFields");
+
+
+
+main.$store.dispatch("loadPages");
+main.$store.dispatch("loadSetting");
+main.$store.dispatch("loadCategories");
+main.$store.dispatch("loadPagesRouts");
 
 
 export default main

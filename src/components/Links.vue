@@ -1,47 +1,38 @@
 <template>
-  <nav class="footer_products products">
+  <nav class="products">
     <router-link
-      class="products_link"
-      active-class="products_link--active"
+      v-if="el.products.length > 0 || el.slug === 'vsi-tovari'"
+      v-for="(el, i) in getCategories"
+      :key="i"
+      :class="[
+        'products_link',
+        { 'products_link--active': setActive(el.slug) },
+      ]"
       tag="a"
-      to="/all"
+      :to="`/catalog:${el.slug}`"
+      v-text="el.name"
       >Всі товари</router-link
-    >
-
-    <router-link
-      class="products_link"
-      active-class="products_link--active"
-      tag="a"
-      to="/1"
-      >Арабіка</router-link
-    >
-    <router-link
-      class="products_link"
-      active-class="products_link--active"
-      tag="a"
-      to="/2"
-      >суміш арабіка/робуста</router-link
-    >
-    <router-link
-      class="products_link"
-      active-class="products_link--active"
-      tag="a"
-      to="/3"
-      >Дегустаційні сети</router-link
-    >
-    <router-link
-      class="products_link"
-      active-class="products_link--active"
-      tag="a"
-      to="/4"
-      >мерч</router-link
     >
   </nav>
 </template>
 
 <script>
 export default {
-    name: "Links",
+  name: "Links",
+  computed: {
+    getCategories() {
+      return this.$store.getters.getCategories;
+    },
+  },
+  methods: {
+    setActive(el) {
+      if (this.$route.params.slug) {
+        return el === this.$route.params.slug.slice(1);
+      } else {
+        return false;
+      }
+    },
+  },
 };
 </script>
 
@@ -51,7 +42,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 88px;
-  border-bottom: 1px solid #D8D8D8;
+  border-bottom: 1px solid #d8d8d8;
   @include max-w(767) {
     height: auto;
     flex-direction: column;
@@ -93,8 +84,8 @@ export default {
     color: #666666;
 
     padding: 0px 1.65%;
-    border-right: 1px solid #D8D8D8;
-    @include max-w(992) {
+    border-right: 1px solid #d8d8d8;
+    @include max-w(1299) {
       font-size: 19px;
     }
     @include max-w(767) {

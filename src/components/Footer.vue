@@ -4,49 +4,14 @@
       <img :src="getImg('logo.png')" class="footer-logo_img" alt="" />
     </div>
 
-    <nav class="footer_products products">
-      <router-link
-        class="products_link"
-        active-class="products_link--active"
-        tag="a"
-        to="/all"
-        >Всі товари</router-link
-      >
-
-      <router-link
-        class="products_link"
-        active-class="products_link--active"
-        tag="a"
-        to="/1"
-        >Арабіка</router-link
-      >
-      <router-link
-        class="products_link"
-        active-class="products_link--active"
-        tag="a"
-        to="/2"
-        >суміш арабіка/робуста</router-link
-      >
-      <router-link
-        class="products_link"
-        active-class="products_link--active"
-        tag="a"
-        to="/3"
-        >Дегустаційні сети</router-link
-      >
-      <router-link
-        class="products_link"
-        active-class="products_link--active"
-        tag="a"
-        to="/4"
-        >мерч</router-link
-      >
+    <nav class="footer_products">
+      <Links />
     </nav>
 
     <nav class="footer_pages pages">
       <div class="pages_social social">
         <div class="social_wrap">
-          <div class="social_link"  @click="getSocial('instagram')">
+          <div class="social_link" @click="getSocial('instagram')">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -63,7 +28,7 @@
             </svg>
           </div>
 
-          <div class="social_link"  @click="getSocial('facebook')">
+          <div class="social_link" @click="getSocial('facebook')">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -93,16 +58,21 @@
       </div>
 
       <div class="pages_link-wrap">
-        <router-link
-          class="pages_link"
-          active-class="pages_link--active"
+        <div
           v-for="(el, i) in getPagesRouts"
           :key="i"
-          tag="a"
-          to="/link"
-          v-text="el.title"
-          >Контакти</router-link
+          class="pages_link-container"
         >
+          <router-link
+            class="pages_link"
+            active-class="pages_link--active"
+            tag="a"
+            v-if="el.status &&  el.show_in_footer"
+            :to="el.link.split('/')[4]"
+            v-text="el.title"
+            >Контакти</router-link
+          >
+        </div>
       </div>
 
       <div class="pages_banks pages_banks--dt">
@@ -134,7 +104,11 @@
 </template>
 
 <script>
+import Links from "@/components/Links.vue";
 export default {
+  components: {
+    Links
+  },
   data() {
     return {
       links: [
@@ -170,26 +144,24 @@ export default {
     },
     getSocial(name) {
       let settingObj = this.$store.getters.getSetting;
-      console.log( settingObj );
-      if (settingObj !== null) {   
-        window.open(settingObj.socials[name] , "_blank");
-      }    
-      
+      if (settingObj !== null) {
+        window.open(settingObj.socials[name], "_blank");
+      }
     },
   },
   computed: {
     getPagesRouts() {
       return this.$store.getters.getPagesRouts;
     },
-  },
-  beforeCreate() {
-    this.$store.dispatch("loadPagesRouts");
-  },
+  }
+
 };
 </script>
 
 <style scoped lang="scss">
 .footer {
+  margin-top: auto;
+  background: #F2F2F2;
   &_logo {
     display: flex;
     justify-content: center;
@@ -301,11 +273,16 @@ export default {
       font-size: 16px;
       line-height: 16px;
       color: #666666;
-      margin: 0 12px;
+      margin: 3px 12px;
       max-width: 200px;
 
-      @include max-w(1199) {
-        margin: 0 6px;
+      &-container {
+        display: flex;
+        flex-shrink: 0;
+      }
+
+      @include max-w(1270) {
+        margin: 3px 6px;
       }
 
       @include max-w(1023) {
@@ -334,7 +311,11 @@ export default {
       }
 
       &-wrap {
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: space-between;
         margin: 0 0.6%;
+
         @include max-w(992) {
           margin: 0 6px;
         }
@@ -402,7 +383,7 @@ export default {
       &_item {
         display: flex;
         margin: 0 8px;
-        @include max-w(1199) {
+        @include max-w(1270) {
           margin: 0 4px;
         }
         @include max-w(767) {

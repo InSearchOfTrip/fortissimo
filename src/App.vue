@@ -1,10 +1,8 @@
 <template>
-  <div id="app">
-    <Header />
+  <div id="app">   
     <router-view>
 
-    </router-view>
-    <Footer />
+    </router-view>  
   </div>
 </template>
 
@@ -13,18 +11,13 @@
 
 import "@/style/main.scss";
 
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
 
 
 export default {
   components: {
-    Header ,
-    Footer   
   }
 }
 </script>
 
 <style lang="scss">
-
 </style>

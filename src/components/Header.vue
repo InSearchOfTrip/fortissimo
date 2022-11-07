@@ -44,7 +44,7 @@
           </picture>
         </router-link>
 
-        <div class="header_group">
+        <div @click="toOrder" class="header_group">
           <div :class="['basket border', { active: basket.count }]">
             <svg
               class="basket_img"
@@ -88,7 +88,7 @@ export default {
   },
   data() {
     return {
-      showMenu: false,      
+      showMenu: false,
     };
   },
   methods: {
@@ -109,13 +109,17 @@ export default {
       });
       return result;
     },
-    getPhone(){
-      let settingObj = this.$store.getters.getSetting;     
-      if(settingObj !== null){
+    getPhone() {
+      let settingObj = this.$store.getters.getSetting;
+      if (settingObj !== null) {
         return settingObj.contacts.phone;
       }
-      
-    }    
+    },
+    toOrder() {
+      if (this.$store.getters.getBasket.length > 0) {
+        this.$router.push("/order");
+      }
+    },
   },
   computed: {
     basket() {
@@ -137,7 +141,9 @@ export default {
             if (typeof resultPrise === "object") {
               sumPrise += +resultPrise.new * thisProdCnt;
             } else {
-              sumPrise += +resultPrise * thisProdCnt;
+              if (!isNaN(resultPrise)) {
+                sumPrise += +resultPrise * thisProdCnt;
+              }
             }
           });
         });
@@ -147,12 +153,8 @@ export default {
         sum: sumPrise,
       };
     },
-    
   },
-  beforeCreate() {
-    this.$store.dispatch('loadSetting');
-  }
-
+ 
 };
 </script>
 
@@ -167,7 +169,7 @@ export default {
   height: 100%;
 }
 
-.space{
+.space {
   height: 80px;
   @include max-w(767) {
     height: 60px;

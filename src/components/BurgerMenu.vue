@@ -5,52 +5,34 @@
       <div class="b-menu_row">
         <nav class="b-menu_products products">
           <router-link
-            class="products_link"
-            active-class="products_link--active"
+            v-if="el.products.length > 0 || el.slug === 'vsi-tovari'"
+            v-for="(el, i) in getCategories"
+            :key="i"
+            :class="[
+              'products_link',
+              { 'products_link--active': setActive(el.slug) },
+            ]"
             tag="a"
-            to="/all"
+            :to="`/catalog:${el.slug}`"
+            v-text="el.name"
             >Всі товари</router-link
-          >
-
-          <router-link
-            class="products_link"
-            active-class="products_link--active"
-            tag="a"
-            to="/1"
-            >Арабіка</router-link
-          >
-          <router-link
-            class="products_link"
-            active-class="products_link--active"
-            tag="a"
-            to="/2"
-            >суміш арабіка/робуста</router-link
-          >
-          <router-link
-            class="products_link"
-            active-class="products_link--active"
-            tag="a"
-            to="/3"
-            >Дегустаційні сети</router-link
-          >
-          <router-link
-            class="products_link"
-            active-class="products_link--active"
-            tag="a"
-            to="/4"
-            >мерч</router-link
           >
         </nav>
       </div>
 
       <div class="b-menu_row">
         <nav class="b-menu_pages pages">
-          <div class="pages_link-wrap" v-for="(el, i) in getPagesRouts" :key="i">
+          <div class="pages_link-wrap"
+            v-for="(el, i) in getPagesRouts"
+            :key="i"
+             v-if="el.status && el.show_in_header"
+          >
             <router-link
               class="pages_link"
               active-class="pages_link--active"
               tag="a"
-              to="/link"
+             
+              :to="el.link.split('/')[4]"
               v-text="el.title"
               >Контакти</router-link
             >
@@ -140,13 +122,24 @@ export default {
         return this.linksPages.mobile;
       }
     },
-    getPagesRouts(){
+    getPagesRouts() {
       return this.$store.getters.getPagesRouts;
-    }
+    },
+    getCategories() {
+      return this.$store.getters.getCategories;
+    },
   },
-  beforeCreate() {
-    this.$store.dispatch('loadPagesRouts');
+  methods: {
+    setActive(el) {
+      if (this.$route.params.slug) {
+        return el === this.$route.params.slug.slice(1);
+      } else {
+        return false;
+      }
+    },
   },
+
+
 };
 </script>
 
@@ -188,7 +181,7 @@ export default {
 
   overflow: hidden;
   &--active {
-    top: 81px;
+    top: 80px;
     @include max-w(767) {
       top: 61px;
     }
@@ -241,7 +234,7 @@ export default {
 
       padding: 0px 1.65%;
       border-right: 1px solid #666666;
-      @include max-w(992) {
+      @include max-w(1299) {
         font-size: 19px;
       }
       @include max-w(767) {
