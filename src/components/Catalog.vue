@@ -254,7 +254,7 @@ export default {
     },
   },
   methods: {
-    getImg(rout) {
+    getImg(rout) {      
       return `./storage/${rout}`;
     },
 

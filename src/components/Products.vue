@@ -277,7 +277,7 @@ export default {
   },
   methods: {
     getImg(rout) {
-      return `./storage/${rout}`;
+      return `${this.$store.getters.getServerLink}/storage/${rout}`;
     },
     calcPrise(id) {
       let resultPrise = "";

@@ -1,23 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-function _findElInBasket(el, func) {
-  let result;
-  el.addedInBasket.forEach((element) => {
-    if (
-      el.typeChoosed === element.typeChoosed &&
-      el.weightChoosed === element.weightChoosed
-    ) {
-      result = func(element);
-    } else {
-      return false;
-    }
-  });
-  return result;
-}
+import  serverLink from '../../serverLink';
+console.log("serverLink" , serverLink)
 
 
 Vue.use(Vuex);
+
 
 const api = {
   state: {
@@ -25,11 +13,12 @@ const api = {
     pages: null,
     gallery: null,
     block_text: null,
+    serverLink: serverLink
   },
   actions: {
     loadSetting() {
       let that = this;
-      fetch(`./api/settings`)
+      fetch(`${serverLink}/api/settings`)
         .then((response) => {
           return response.json();
         })
@@ -39,7 +28,7 @@ const api = {
     },
     loadPages() {
       let that = this;
-      fetch(`./api/pages`)
+      fetch(`${serverLink}/api/pages`)
         .then((response) => {
           return response.json();
         })
@@ -49,7 +38,7 @@ const api = {
     },
     loadGallery() {
       let that = this;
-      fetch(`./api/galleries`)
+      fetch(`${serverLink}/api/galleries`)
         .then((response) => {
           return response.json();
         })
@@ -60,7 +49,7 @@ const api = {
     },
     loadBlockText() {
       let that = this;
-      fetch(`./api/block_texts`)
+      fetch(`${serverLink}/api/block_texts`)
         .then((response) => {
           return response.json();
         })
@@ -70,6 +59,9 @@ const api = {
     },
   },
   getters: {
+    getServerLink(state){
+      return state.serverLink
+    },
     getSetting(state) {
       return state.settings;
     },
@@ -102,7 +94,7 @@ const productsSlider = {
   actions: {
     loadSliders() {
       let that = this;
-      fetch(`./api/sliders`)
+      fetch(`${serverLink}/api/sliders`)
         .then((response) => {
           return response.json();
         })
@@ -169,7 +161,7 @@ const products = {
   actions: {
     loadProducts() {
       let that = this;
-      fetch(`./api/products`)
+      fetch(`${serverLink}/api/products`)
         .then((response) => {
           return response.json();
         })
@@ -305,7 +297,7 @@ const pages = {
     loadPagesRouts() {
 
       let that = this;
-      fetch(`./api/pages`)
+      fetch(`${serverLink}/api/pages`)
         .then((response) => {
           return response.json();
         })
@@ -315,7 +307,7 @@ const pages = {
     },
     loadCategories() {   
       let that = this;
-      fetch(`./api/categories`)
+      fetch(`${serverLink}/api/categories`)
         .then((response) => {
           return response.json();
         })

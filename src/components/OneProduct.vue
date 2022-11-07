@@ -336,8 +336,8 @@ export default {
       return result;
     },
 
-    getImg(rout) {
-      return `./storage/${rout}`;
+    getImg(rout) {     
+      return `${this.$store.getters.getServerLink}/storage/${rout}`;
     },
     weightText(name) {
       if (name === "1000") {

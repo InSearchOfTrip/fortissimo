@@ -592,7 +592,7 @@ export default {
       return result;
     },
     getImg(rout) {
-      return `./storage/${rout}`;
+      return `${this.$store.getters.getServerLink}/storage/${rout}`;
     },
     submit() {
       switch (this.form.deliveryCompany) {

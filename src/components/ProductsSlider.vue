@@ -144,8 +144,8 @@ export default {
     };
   },
   methods: {
-    getImg(rout) {
-      return`./storage/${rout}`;
+    getImg(rout) { 
+      return`${this.$store.getters.getServerLink}/storage/${rout}`;
     },
     isShow(i) {
       return this.slideActive === i;

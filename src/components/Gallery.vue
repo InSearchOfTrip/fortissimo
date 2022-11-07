@@ -2,7 +2,7 @@
   <section class="gallery">
     <div class="columns">
       <div v-for="item of getImages()" class="image">
-        <img :src="`./storage/${item}`" alt="">
+        <img :src="getImg(item)" alt="">
       </div>
     </div>
 
@@ -21,7 +21,7 @@
           }"
         >
           <div v-for="item of getImages()" class="image">
-            <img :src="`./storage/${item}`" alt="">
+            <img :src="getImg(item)" alt="">
           </div>
         </VueSlickCarousel>
         <div class="bottom">
@@ -90,6 +90,9 @@ export default {
     };
   },
   methods: {
+    getImg(rout) {
+      return `${this.$store.getters.getServerLink}/storage/${rout}`;
+    },
     getImages() {
       let imagesObj = JSON.parse(this.$store.getters.getGallery[0].images)
       if (imagesObj) {

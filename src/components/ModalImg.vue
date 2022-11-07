@@ -14,7 +14,7 @@ export default {
 
   computed: {
     getImg() {
-      return `./storage/${this.product[0].img}`;
+      return `${this.$store.getters.getServerLink}/storage/${this.product[0].img}`;
     },
   },
 };

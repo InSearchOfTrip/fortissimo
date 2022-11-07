@@ -12,9 +12,11 @@
 import "@/style/main.scss";
 
 
-
 export default {
   components: {
+  },
+  mounted(){
+
   }
 }
 </script>

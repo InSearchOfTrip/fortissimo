@@ -13,7 +13,7 @@ Vue.use(Vuelidate)
 Vue.component("Header", Header);
 Vue.component("Footer", Footer);
 
-Vue.config.productionTip = false
+Vue.productionTip = false
 
 
 Vue.use({
@@ -27,6 +27,8 @@ const main = new Vue({
   
   render: h => h(App)
 }).$mount('#app');
+
+
 
 main.$store.dispatch("loadSliders");
 main.$store.dispatch("loadProducts");
